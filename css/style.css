@@ -1,0 +1,429 @@
+/* Paleta de color */
+:root {
+    --morado-oscuro-1: #957698;
+    --morado-oscuro-2: #572853;
+    --morado-pastel: #B39EB5;
+    --morado-claro: #CDBFCB;
+    --morado-gris: #f2ebf3;
+    --gris-claro: #F0F5F6;
+    --gris: #CECECE;
+}
+
+/* Login */
+
+body.login-page{
+    background:var(--morado-claro);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* tarjeta */
+.login-page .login-card{
+    background:var(--morado-oscuro-2) !important;
+    border-radius:18px;
+    padding:40px;
+    width:360px;
+    box-shadow:0 12px 28px var(--morado-oscuro-2);
+}
+
+/* avatar */
+.login-page .avatar{
+    width:90px;
+    height:90px;
+    background:#e0e0e0;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 25px auto;
+}
+
+
+/* Colores de la imagen de perfil */
+.login-page .avatar svg{
+    width:45px;
+    fill:#7a7a7a;
+}
+
+/* titulo */
+.login-page .login-title{
+    color:white;
+    text-align:center;
+    margin-bottom:25px;
+    font-weight:500;
+}
+
+/* labels */
+.login-page .form-label{
+    color:var(--gris-claro) !important;
+    font-size:14px;
+}
+
+/* inputs */
+.login-page input.form-control{
+    background:var(--gris-claro) !important;
+    border:none !important;
+    padding:10px;
+}
+
+.login-page input.form-control:focus{
+    background:white !important;
+    box-shadow:0 0 0 0.2rem rgba(255,255,255,0.15) !important;
+}
+
+/* boton */
+.login-page .btn-login{
+    background:var(--morado-oscuro-2) !important;
+    border:none;
+    font-weight:500;
+    color:white;
+}
+
+.login-page .btn-login:hover{
+    background:var(--morado-oscuro-1) !important;
+}
+
+/* error */
+.login-page .error{
+    color:#ffdede;
+    text-align:center;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+
+
+/* CSS General */
+
+
+/* Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--morado-pastel);
+}
+
+/* Header */
+.header {
+    background: var(--morado-oscuro-2) !important;
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: center; /* centrado estilo figma */
+    align-items: center;
+}
+
+/* Botón logout */
+.logout-btn {
+    background: var(--morado-oscuro-1);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background: var(--morado-pastel);
+}
+
+/* Layout principal */
+.main-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: var(--morado-oscuro-2);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Caja usuario */
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+/* Nombre usuario */
+.user-box p {
+    font-size: 27px; /* tamaño más grande */
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+/* avatar usuario */
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-avatar svg {
+    width: 28px;
+    fill: var(--morado-oscuro-1);
+}
+
+/* buscador */
+.search-bar {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+/* Botones sidebar */
+.side-btn {
+    background: var(--morado-oscuro-1);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
+}
+
+/* hover */
+.side-btn:hover {
+    background: var(--morado-pastel);
+}
+
+/* botón activo */
+.side-btn.active {
+    background: var(--gris-claro);
+    color: var(--morado-oscuro-2);
+}
+
+/* botón activo */
+.side-btn.active:hover {
+    background: var(--morado-pastel);
+    color: white;
+}
+
+/* Contenido principal */
+.main-content {
+    flex: 1;
+}
+
+/* Ojo: corregir bootstrap container */
+.container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+}
+
+/* Contenido interno */
+.content {
+    background: var(--morado-gris);
+    padding: 25px;
+    border-radius: 20px;
+    min-height: 80vh;
+}
+
+
+
+/* Formularios */
+form {
+    background: var(--morado-pastel);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* Grupo de formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Inputs */
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    background: var(--gris-claro);
+}
+
+/* Botones */
+.btn {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: var(--morado-oscuro-1) !important;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--morado-oscuro-2) !important;
+}
+
+/* Tabla */
+table {
+    background: white;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+/* Encabezado */
+thead th {
+    padding: 10px;
+    text-align: left;
+    color: var(--morado-oscuro-2);
+}
+
+/* Filas */
+tbody tr {
+    background: var(--morado-gris);
+    border-radius: 12px;
+}
+
+/* Celdas */
+td {
+    padding: 12px;
+}
+
+/* Hover tabla */
+tbody tr:hover {
+    background: var(--gris-claro);
+}
+
+/* Mensaje */
+.flash-message {
+    background: var(--morado-claro);
+    border-left: 5px solid var(--morado-oscuro-1);
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    color: var(--morado-oscuro-2);
+}
+
+/* Sombras */
+.sidebar,
+.content,
+form,
+table {
+    box-shadow: 0 6px 15px rgba(34, 30, 30, 0.1);
+}
+
+
+
+/* authentication */
+
+/* Labels dentro de #authentication */
+#authentication label {
+    display: block;      /* asegura que label esté sobre el input */
+    margin-bottom: 6px;  /* espacio entre label e input */
+    font-weight: 600;
+    color: var(--morado-oscuro-2);
+}
+
+/* Inputs y selects dentro de #authentication */
+#authentication input.form-control,
+#authentication select.form-control {
+    margin-bottom: 12px; /* espacio debajo del input antes del siguiente */
+}
+
+#authentication section h3 {
+    margin-top: 25px;  
+    margin-bottom: 15px; 
+}
+
+
+
+
+/* inventario */
+
+/* Secciones de inventario */
+#inventory section {
+    margin-bottom: 30px;
+}
+
+#inventory h3 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: var(--morado-oscuro-2);
+}
+
+#inventory .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+#inventory .form-group input,
+#inventory .form-group select {
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--gris);
+    width: 100%;
+}
+
+#inventory .btn-primary {
+    margin-top: 10px;
+    width: fit-content;
+}
+
+/* Botones de inventario: unificados moraditos */
+#inventory button {
+    background-color: var(--morado-oscuro-1) !important;
+    color: white !important;
+    border: none !important;
+    padding: 6px 12px !important;
+    border-radius: 12px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: 0.2s !important;
+}
+
+#inventory button:hover {
+    background-color: var(--morado-oscuro-2) !important;
+    color: white !important;
+}
+
+/* Botón genérico de formulario (guardar producto, crear categoría) */
+#inventory .btn-primary {
+    background-color: var(--morado-oscuro-1) !important;
+}
+
+#inventory .btn-primary:hover {
+    background-color: var(--morado-oscuro-2) !important;
+}
