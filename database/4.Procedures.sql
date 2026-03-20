@@ -103,23 +103,41 @@ BEGIN
     SELECT ROW_COUNT() AS rows_affected;
 END //
 
--- eliminar usuario
+-- Eliminar usuario
 CREATE PROCEDURE sp_users_delete(IN p_id_user INT)
 BEGIN
-    -- Verificar si tiene citas, ventas, etc.
     DECLARE appointment_count INT;
     DECLARE sale_count INT;
+    DECLARE log_count INT;
+    DECLARE error_count INT;
     
     SELECT COUNT(*) INTO appointment_count FROM appointments WHERE id_dentist_user = p_id_user;
     SELECT COUNT(*) INTO sale_count FROM sales WHERE id_user = p_id_user;
+    SELECT COUNT(*) INTO log_count FROM activity_logs WHERE id_user = p_id_user;
+    SELECT COUNT(*) INTO error_count FROM error_logs WHERE id_user = p_id_user;
     
-    IF appointment_count > 0 OR sale_count > 0 THEN
+    IF appointment_count > 0 OR sale_count > 0 OR log_count > 0 OR error_count > 0 THEN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'No se puede eliminar el usuario porque tiene actividad registrada';
     ELSE
         DELETE FROM users WHERE id_user = p_id_user;
         SELECT ROW_COUNT() AS rows_affected;
     END IF;
+END //
+
+-- Verificar credenciales de usuario
+CREATE PROCEDURE sp_users_login(
+    IN p_email VARCHAR(100),
+    IN p_password_hash VARCHAR(255)
+)
+BEGIN
+    UPDATE users SET last_login = NOW() 
+    WHERE email = p_email AND password_hash = p_password_hash;
+    
+    SELECT u.*, r.role_name 
+    FROM users u
+    INNER JOIN roles r ON u.id_role = r.id_rol
+    WHERE u.email = p_email AND u.password_hash = p_password_hash AND u.active = TRUE;
 END //
 
 -- Estado de citas
@@ -264,13 +282,13 @@ BEGIN
     SELECT ROW_COUNT() AS rows_affected;
 END //
 
--- cancelar cita
+-- Cancelar cita
 CREATE PROCEDURE sp_appointments_cancel(IN p_id_appointment INT)
 BEGIN
     UPDATE appointments 
-    SET id_appointment_status = 5
+    SET id_appointment_status = (SELECT id_status FROM appointment_statuses 
+                                 WHERE status_name = 'Cancelled')
     WHERE id_appointment = p_id_appointment;
-    
     SELECT ROW_COUNT() AS rows_affected;
 END //
 
