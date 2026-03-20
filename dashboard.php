@@ -206,19 +206,44 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
 <script>
 function tab(value){
     const sections = ['authentication','appointments','inventory','sales'];
+
     sections.forEach(section => {
         const el = document.getElementById(section);
         if(el) el.style.display = section === value ? 'block' : 'none';
     });
+
     document.querySelectorAll('.side-btn').forEach(btn => 
         btn.classList.remove('active'));
+
     document.querySelectorAll('.side-btn').forEach(btn => {
         if(btn.getAttribute('onclick').includes(value)) 
             btn.classList.add('active');
     });
+
     history.replaceState(null,null,'?tab='+value);
+
+    // ocultar mensaje si NO es el módulo correcto
+    const flash = document.querySelector('.flash-message');
+    if (flash && value !== '<?php echo $tab; ?>') {
+        flash.style.display = 'none';
+    }
 }
+
+// carga inicial
 tab('<?php echo $tab; ?>');
+
+
+//  auto ocultar después de 2 minutos
+document.addEventListener("DOMContentLoaded", function() {
+    const flash = document.querySelector('.flash-message');
+    if (flash) {
+        setTimeout(() => {
+            flash.style.transition = "opacity 0.5s ease";
+            flash.style.opacity = "0";
+            setTimeout(() => flash.remove(), 500);
+        }, 120000);
+    }
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
