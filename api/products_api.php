@@ -32,7 +32,7 @@ if ($method == "POST") {
             ":min"     => $data["min_stock"],
             ":unit"    => $data["measurement_unit"]
         ]);
-        echo json_encode(["message" => "Producto registrado exitosamente"]);
+        echo json_encode(["message" => "Product created successfully"]);
     } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(["message" => "Error: " . $e->getMessage()]);
@@ -60,10 +60,10 @@ if ($method == "PUT") {
             ":measurement_unit"    => $data["measurement_unit"],
             ":id"      => $data["id_product"]
         ]);
-        echo json_encode(["message" => "Producto actualizado con éxito"]);
+        echo json_encode(["message" => "Product updated successfully"]);
     } catch (PDOException $e) {
         http_response_code(500);
-        echo json_encode(["message" => "Error de SQL: " . $e->getMessage()]);
+        echo json_encode(["message" => "SQL Error: " . $e->getMessage()]);
     }
     exit; 
 }
@@ -71,6 +71,6 @@ if ($method == "PUT") {
 if ($method == "DELETE") {
     $stmt = $pdo->prepare("DELETE FROM products WHERE id_product = :id");
     $stmt->execute([":id" => $data["id_product"]]);
-    echo json_encode(["message" => "Producto eliminado"]);
+    echo json_encode(["message" => "Product deleted successfully"]);
     exit;
 }

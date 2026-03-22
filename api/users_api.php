@@ -15,7 +15,7 @@ try {
     // --- CREAR USUARIO ---
     if ($method == "POST") {
         if (empty($data["full_name"]) || empty($data["email"])) {
-            throw new Exception("Datos incompletos");
+            throw new Exception("Incomplete user data provided");
         }
 
         $sql = "INSERT INTO users (full_name, email, phone, password_hash, id_role, active)
@@ -30,12 +30,12 @@ try {
             ":role"  => $data["id_role"]
         ]);
 
-        echo json_encode(["message" => "Usuario creado con éxito"]);
+        echo json_encode(["message" => "User created successfully"]);
     }
 
     // --- ACTUALIZAR USUARIO ---
     if ($method == "PUT") {
-        if (empty($data["id_user"])) throw new Exception("ID de usuario no proporcionado");
+        if (empty($data["id_user"])) throw new Exception("ID of user not provided");
 
         $sql = "UPDATE users
                 SET full_name = :name,
@@ -55,17 +55,17 @@ try {
             ":active" => $data["active"]
         ]);
 
-        echo json_encode(["message" => "Usuario actualizado correctamente"]);
+        echo json_encode(["message" => "User updated successfully"]);
     }
 
     // --- ELIMINAR USUARIO ---
     if ($method == "DELETE") {
-        if (empty($data["id_user"])) throw new Exception("ID de usuario no proporcionado");
+        if (empty($data["id_user"])) throw new Exception("ID of user not provided");
 
         $stmt = $pdo->prepare("DELETE FROM users WHERE id_user = :id");
         $stmt->execute([":id" => $data["id_user"]]);
 
-        echo json_encode(["message" => "Usuario eliminado"]);
+        echo json_encode(["message" => "User deleted successfully"]);
     }
 
 } catch (Exception $e) {
