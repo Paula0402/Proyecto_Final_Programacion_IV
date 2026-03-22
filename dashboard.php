@@ -12,10 +12,10 @@ if (!isset($_SESSION['user_id'])) {
 $user_role = $_SESSION['user_role'] ?? 4;
 
 $all_tabs = [
-    'authentication' => 'authentication and users',
-    'appointments' => 'appointments and patients',
-    'inventory' => 'inventory and products',
-    'sales' => 'sales and payments',
+    'authentication' => 'Authentication and Users',
+    'appointments' => 'Appointments and Patients',
+    'inventory' => 'Inventory and Products',
+    'sales' => 'Sales and Payments',
 ];
 
 $allowed_tabs = [];
