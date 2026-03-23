@@ -4,9 +4,10 @@ USE white_care_db;
 -- Tablas de usuarios y Logs
 
 CREATE TABLE IF NOT EXISTS roles (
-    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    id_role INT AUTO_INCREMENT PRIMARY KEY,
     role_name VARCHAR(50) NOT NULL,
     description TEXT,
+    active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -21,29 +22,27 @@ CREATE TABLE IF NOT EXISTS users (
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login DATETIME DEFAULT NULL,
     failed_attempts INT DEFAULT 0,
-    CONSTRAINT fk_user_role FOREIGN KEY (id_role) REFERENCES roles(id_rol)
+    CONSTRAINT fk_user_role FOREIGN KEY (id_role) REFERENCES roles(id_role)
 );
 
 CREATE TABLE IF NOT EXISTS activity_logs (
     id_log INT AUTO_INCREMENT PRIMARY KEY,
-    id_user INT NOT NULL,
-    action TEXT,
-    affected_table VARCHAR(50),
-    old_value TEXT,
-    new_value TEXT,
-    record_id INT,
-    activity_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_act_user FOREIGN KEY (id_user) REFERENCES users(id_user)
+    id_user INT NULL,                     
+    action VARCHAR(50) NOT NULL,          
+    affected_table VARCHAR(50) NOT NULL,  
+    record_id INT NULL,                   
+    old_value TEXT NULL,                  
+    new_value TEXT NULL,                  
+    activity_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS error_logs (
     id_error INT AUTO_INCREMENT PRIMARY KEY,
     error_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    id_user INT,
+    id_user INT NULL,                     
     procedure_name TEXT,
     error_code INT,
-    error_message TEXT,
-    CONSTRAINT fk_err_user FOREIGN KEY (id_user) REFERENCES users(id_user)
+    error_message TEXT
 );
 
 -- Tablas de Catalogos
@@ -51,19 +50,22 @@ CREATE TABLE IF NOT EXISTS error_logs (
 CREATE TABLE IF NOT EXISTS appointment_statuses (
     id_status INT AUTO_INCREMENT PRIMARY KEY,
     status_name VARCHAR(50) NOT NULL,
-    description TEXT
+    description TEXT,
+    active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS sale_statuses (
     id_status INT AUTO_INCREMENT PRIMARY KEY,
     status_name VARCHAR(50) NOT NULL,
-    description TEXT
+    description TEXT,
+    active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS movement_types (
     id_type INT AUTO_INCREMENT PRIMARY KEY,
     type_name VARCHAR(50) NOT NULL,
-    description TEXT
+    description TEXT,
+    active BOOLEAN DEFAULT TRUE
 );
 
 -- Tablas de Pacientes y Citas
@@ -77,6 +79,7 @@ CREATE TABLE IF NOT EXISTS patients (
     phone VARCHAR(15),
     email VARCHAR(100),
     address TEXT,
+    active BOOLEAN DEFAULT TRUE,
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_patients_email UNIQUE (email)
 );
@@ -114,7 +117,8 @@ CREATE TABLE IF NOT EXISTS medical_histories (
 CREATE TABLE IF NOT EXISTS product_categories (
     id_category INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL,
-    description TEXT
+    description TEXT,
+    active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS products (
@@ -126,6 +130,7 @@ CREATE TABLE IF NOT EXISTS products (
     purchase_price DECIMAL(10,2) NOT NULL,
     min_stock INT DEFAULT 5,
     measurement_unit VARCHAR(20),
+    active BOOLEAN DEFAULT TRUE,
     CONSTRAINT fk_prod_cat FOREIGN KEY (id_category) REFERENCES product_categories(id_category)
 );
 
