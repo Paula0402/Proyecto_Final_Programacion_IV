@@ -20,7 +20,7 @@ try {
         $stmt->execute([
             ":name" => $data["type_name"]
         ]);
-        echo json_encode(["message" => "Tipo de movimiento agregado"]);
+        echo json_encode(["message" => "Movement type added successfully"]);
     }
 
     // --- ACTUALIZAR TIPO ---
@@ -31,7 +31,7 @@ try {
             ":name" => $data["type_name"],
             ":id"   => $data["id_type"]
         ]);
-        echo json_encode(["message" => "Tipo actualizado"]);
+        echo json_encode(["message" => "Type updated successfully"]);
     }
 
     // --- ELIMINAR TIPO ---
@@ -41,7 +41,7 @@ try {
         $stmt->execute([
             ":id" => $data["id_type"]
         ]);
-        echo json_encode(["message" => "Tipo eliminado"]);
+        echo json_encode(["message" => "Type deleted successfully"]);
     }
 
 } catch (PDOException $e) {
@@ -49,6 +49,6 @@ try {
     http_response_code(500);
     echo json_encode([
         "error" => true,
-        "message" => "Error en la base de datos: " . $e->getMessage()
+        "message" => "Error in the base date: " . $e->getMessage()
     ]);
 }

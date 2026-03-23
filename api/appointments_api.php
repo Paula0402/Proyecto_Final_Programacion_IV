@@ -31,5 +31,5 @@ if ($method == "POST") {
         ":date" => $data["appointment_date"]
     ]);
 
-    echo json_encode(["message"=>"Cita creada"]);
+    echo json_encode(["message"=>"Appointment created successfully"]);
 }

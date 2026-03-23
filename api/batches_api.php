@@ -37,6 +37,6 @@ $conn->query("INSERT INTO batches
 (id_product,batch_number,expiration_date,initial_quantity,current_quantity)
 VALUES($product,'$batch','$exp',$qty,$curr_qty)");
 
-echo json_encode(["message"=>"Lote agregado"]);
+echo json_encode(["message"=>"Batch created successfully"]);
 
 }

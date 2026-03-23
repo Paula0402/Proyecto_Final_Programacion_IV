@@ -43,7 +43,7 @@ if ($method == "POST") {
         ]);
 
         $pdo->commit();
-        echo json_encode(["message" => "Movimiento registrado correctamente"]);
+        echo json_encode(["message" => "Movement recorded successfully"]);
     } catch (Exception $e) {
         $pdo->rollBack();
         echo json_encode(["message" => "Error: " . $e->getMessage()]);

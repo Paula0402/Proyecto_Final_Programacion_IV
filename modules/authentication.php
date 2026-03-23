@@ -1,17 +1,17 @@
 <div id="authentication" class="tab-content <?php echo $tab === 'authentication' ? 'active' : ''; ?>">
 
     <section>
-        <h2>Usuarios</h2>
+        <h2>Users</h2>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th>Name</th>
                     <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Rol</th>
-                    <th>Activo</th>
-                    <th>Acciones</th>
+                    <th>Phone</th>
+                    <th>Role</th>
+                    <th>Active</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="tablaUsuarios"></tbody>
@@ -19,53 +19,53 @@
     </section>
 
     <section>
-        <h3>Agregar Usuario</h3>
+        <h3>Add user</h3>
         <div class="form-group">
-            <input type="text" id="name" placeholder="Nombre" class="form-control">
+            <input type="text" id="name" placeholder="Name" class="form-control">
             <input type="email" id="email" placeholder="Email" class="form-control">
-            <input type="text" id="phone" placeholder="Teléfono" class="form-control">
-            <input type="password" id="password" placeholder="Contraseña" class="form-control">
+            <input type="text" id="phone" placeholder="Phone" class="form-control">
+            <input type="password" id="password" placeholder="Password" class="form-control">
             <select id="role" class="form-control">
                 <option value="1">Admin</option>
-                <option value="2">Odontólogo</option>
-                <option value="3">Bodega</option>
-                <option value="4">Recepcionista</option>
+                <option value="2">Dentist</option>
+                <option value="3">Warehouse</option>
+                <option value="4">Receptionist</option>
             </select>
-            <button class="btn btn-primary" onclick="crearUsuario()">Guardar</button>
+            <button class="btn btn-primary" onclick="crearUsuario()">Save</button>
         </div>
     </section>
 
     <!-- Modal de edición -->
     <div id="modalEditar" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 1000;">
         <div style="background:white; width:400px; padding:20px; margin:100px auto; border-radius: 8px;">
-            <h3>Editar Usuario</h3>
+            <h3>Edit User</h3>
             <input type="hidden" id="edit_id">
 
-            <label>Nombre:</label>
+            <label>Name:</label>
             <input type="text" id="edit_name" class="form-control"><br>
 
             <label>Email:</label>
             <input type="email" id="edit_email" class="form-control"><br>
 
-            <label>Teléfono:</label>
+            <label>Phone:</label>
             <input type="text" id="edit_phone" class="form-control"><br>
 
             <label>Rol:</label>
             <select id="edit_role" class="form-control">
                 <option value="1">Admin</option>
-                <option value="2">Odontólogo</option>
-                <option value="3">Bodega</option>
-                <option value="4">Recepcionista</option>
+                <option value="2">Dentist</option>
+                <option value="3">Warehouse</option>
+                <option value="4">Receptionist</option>
             </select><br>
 
-            <label>Estado:</label>
+            <label>State:</label>
             <select id="edit_active" class="form-control">
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
             </select><br>
 
-            <button class="btn btn-primary" onclick="guardarEdicion()">Actualizar</button>
-            <button class="btn" style="background:#ccc;color:black" onclick="cerrarModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="guardarEdicion()">Update</button>
+            <button class="btn" style="background:#ccc;color:black" onclick="cerrarModal()">Cancel</button>
         </div>
     </div>
 </div>
@@ -74,9 +74,9 @@
     // Configuración global de roles
     const ROLES_MAP = {
         1: "Admin",
-        2: "Odontólogo",
-        3: "Bodega",
-        4: "Recepcionista"
+        2: "Dentist",
+        3: "Warehouse",
+        4: "Receptionist"
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -88,7 +88,7 @@
         fetch("api/users_api.php")
             .then(res => res.json())
             .then(data => renderTablaUsuarios(data))
-            .catch(err => console.error("Error al cargar usuarios:", err));
+            .catch(err => console.error("Error loading users:", err));
     }
 
     function renderTablaUsuarios(usuarios) {
@@ -99,11 +99,11 @@
                 <td>${user.full_name}</td>
                 <td>${user.email}</td>
                 <td>${user.phone}</td>
-                <td>${ROLES_MAP[user.id_role] || "Desconocido"}</td>
-                <td>${user.active == 1 ? "✔︎ Si" : "✖︎ No"}</td>
+                <td>${ROLES_MAP[user.id_role] || "Unknown"}</td>
+                <td>${user.active == 1 ? "✔︎ Yes" : "✖︎ No"}</td>
                 <td>
-                    <button class="btn btn-primary" onclick="prepararEdicion(${JSON.stringify(user).replace(/"/g, '&quot;')})">Editar</button>
-                    <button class="btn" style="background:#ff6b6b;color:white" onclick="eliminarUsuario(${user.id_user})">Eliminar</button>
+                    <button class="btn btn-primary" onclick="prepararEdicion(${JSON.stringify(user).replace(/"/g, '&quot;')})">Edit</button>
+                    <button class="btn" style="background:#ff6b6b;color:white" onclick="eliminarUsuario(${user.id_user})">Delete</button>
                 </td>
             </tr>
         `).join('');
@@ -153,7 +153,7 @@
     }
 
     function eliminarUsuario(id) {
-        if (!confirm("¿Estás seguro de que deseas eliminar este usuario?")) return;
+        if (!confirm("¿You are sure to the delete this user?")) return;
         fetch("api/users_api.php", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },

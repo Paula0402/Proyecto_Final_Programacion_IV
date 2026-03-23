@@ -60,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['fullname'] = $user['full_name'];
     $_SESSION['user_role'] = (int)$user['id_role'];
 
-    $role_names = [1 => 'Admin', 2 => 'Odontólogo', 3 => 'Bodega', 4 => 'Recepción'];
-    $_SESSION['role_name'] = $role_names[$_SESSION['user_role']] ?? 'Invitado';
+    $role_names = [1 => 'Admin', 2 => 'Dentist', 3 => 'Warehouse', 4 => 'Receptionist'];
+    $_SESSION['role_name'] = $role_names[$_SESSION['user_role']] ?? 'Guest';
 
     log_auth_attempt($pdo, $username, 'login success', (int)$user['id_user'], 0);
 

@@ -7,54 +7,54 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
                     <th>Stock</th>
-                    <th>Acciones</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="tablaInventario"></tbody>
         </table>
 
-        <h3>Agregar Producto</h3>
+        <h3>Add Product</h3>
         <div class="form-grid">
             <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" id="name_product" class="form-control" placeholder="Ej: Arroz">
+                <label>Name</label>
+                <input type="text" id="name_product" class="form-control" placeholder="Ej:Brakets">
             </div>
 
             <div class="form-group">
-                <label>Código de Barras</label>
+                <label>Barcode</label>
                 <input type="text" id="barcode" class="form-control" placeholder="12345678">
             </div>
 
             <div class="form-group">
-                <label>Categoría</label>
+                <label>Category</label>
                 <select id="category_select" class="form-control"></select>
             </div>
 
             <div class="form-group">
-                <label>Precio Compra</label>
+                <label>Purchase Price</label>
                 <input type="number" id="purchase_price" class="form-control" placeholder="0.00" step="0.01">
             </div>
 
             <div class="form-group">
-                <label>Precio Venta</label>
+                <label>Sale Price</label>
                 <input type="number" id="sale_price" class="form-control" placeholder="0.00" step="0.01">
             </div>
 
             <div class="form-group">
-                <label>Stock Mínimo</label>
+                <label>Minimum Stock</label>
                 <input type="number" id="min_stock" class="form-control" placeholder="0">
             </div>
 
             <div class="form-group">
-                <label>Unidad de Medida</label>
+                <label>Measurement Unit</label>
                 <input type="text" id="measurement_unit" class="form-control" placeholder="Unid, Kg, ml">
             </div>
 
-            <button class="btn btn-primary" onclick="crearProducto()">Guardar Producto</button>
+            <button class="btn btn-primary" onclick="crearProducto()">Save Product</button>
         </div>
     </section>
 
@@ -62,22 +62,22 @@
 
     <!-- Categorías -->
     <section>
-        <h2>Categorías</h2>
+        <h2>Categories</h2>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre de Categoría</th>
-                    <th>Acciones</th>
+                    <th>Category Name</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="tablaCategorias"></tbody>
         </table>
 
-        <h3>Nueva Categoría</h3>
+        <h3>New Category</h3>
         <div class="form-group">
-            <input type="text" id="new_category_name" class="form-control" placeholder="Ej: Limpieza, Ortodoncia">
-            <button class="btn btn-primary" onclick="crearCategoria()">Guardar Categoría</button>
+            <input type="text" id="new_category_name" class="form-control" placeholder="Ej: Cleaning Supplies">
+            <button class="btn btn-primary" onclick="crearCategoria()">Save Category</button>
         </div>
     </section>
 
@@ -85,29 +85,29 @@
 
     <!-- Movimientos -->
     <section>
-        <h2>Movimientos de Inventario</h2>
+        <h2>Inventory Movements</h2>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Producto</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                    <th>Fecha</th>
+                    <th>Product</th>
+                    <th>Type</th>
+                    <th>Quantity</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody id="tablaMovimientos"></tbody>
         </table>
 
-        <h3>Registrar Movimiento</h3>
+        <h3>Register Movement</h3>
         <div class="form-group">
             <select id="id_movement" class="form-control"></select>
             <select id="id_movements_type" class="form-control">
-                <option value="1">Entrada</option>
-                <option value="2">Salida</option>
+                <option value="1">Entry</option>
+                <option value="2">Exit</option>
             </select>
-            <input type="number" id="mov_quantity" class="form-control" placeholder="Cantidad">
-            <button class="btn btn-primary" onclick="crearMovimiento()">Registrar</button>
+            <input type="number" id="mov_quantity" class="form-control" placeholder="Quantity">
+            <button class="btn btn-primary" onclick="crearMovimiento()">Register</button>
         </div>
     </section>
 
@@ -143,8 +143,8 @@
                 <td>${c.id_category}</td>
                 <td>${c.category_name}</td>
                 <td>
-                    <button onclick="editarCategoria(${c.id_category}, '${c.category_name}')">Editar</button>
-                    <button onclick="eliminarCategoria(${c.id_category})">Eliminar</button>
+                    <button onclick="editarCategoria(${c.id_category}, '${c.category_name}')">Edit</button>
+                    <button onclick="eliminarCategoria(${c.id_category})">Delete</button>
                 </td>
             </tr>
         `).join('');
@@ -158,7 +158,7 @@
 
     async function crearCategoria() {
         const nombre = document.getElementById("new_category_name").value;
-        if(!nombre) return alert("Escribe un nombre");
+        if(!nombre) return alert("Please enter a name for the category.");
 
         const res = await apiRequest("api/categories_api.php", "POST", { category_name: nombre });
         alert(res.message);
@@ -167,7 +167,7 @@
     }
 
     async function eliminarCategoria(id) {
-        if(!confirm("¿Eliminar categoría? Esto podría afectar a los productos asociados.")) return;
+        if(!confirm("¿Eliminate category? it is affect the other products.")) return;
         const res = await apiRequest("api/categories_api.php", "DELETE", { id_category: id });
         alert(res.message);
         cargarCategorias();
@@ -207,22 +207,22 @@ async function cargarProductos() {
                 <div>${p.product_name}</div>
                 <div style="color: #888; font-size: 0.8rem;">${p.barcode || '---'}</div>
             </td>
-            <td>${p.category_name || 'Sin categoría'}</td>
+            <td>${p.category_name || 'out category'}</td>
             <td>
-                <div style="color: #28a745;">Venta: $${parseFloat(p.sale_price || 0).toFixed(2)}</div>
-                <div style="color: #6c757d; font-size: 0.8rem;">Compra: $${parseFloat(p.purchase_price || 0).toFixed(2)}</div>
+                <div style="color: #28a745;">Sale: $${parseFloat(p.sale_price || 0).toFixed(2)}</div>
+                <div style="color: #6c757d; font-size: 0.8rem;">Purchase: $${parseFloat(p.purchase_price || 0).toFixed(2)}</div>
             </td>
             <td>${p.min_stock} ${p.measurement_unit || 'Unid.'}</td>
             <td>
-                <button onclick='abrirModalEditar(${JSON.stringify(p)})'>Editar</button>
-                <button onclick="eliminarProducto(${p.id_product})">Eliminar</button>
+                <button onclick='abrirModalEditar(${JSON.stringify(p)})'>Edit</button>
+                <button onclick="eliminarProducto(${p.id_product})">Delete</button>
             </td>
         </tr>
     `).join('');
 }
 
 async function eliminarProducto(id) {
-    if(!confirm("¿Deseas eliminar este producto?")) return;
+    if(!confirm("Do you want to delete this product?")) return;
     const res = await apiRequest("api/products_api.php", "DELETE", { id_product: id });
     alert(res.message);
     cargarProductos();
@@ -241,14 +241,14 @@ async function crearProducto() {
     const barcodeInput = document.getElementById("barcode").value.trim();
 
     // Validaciones en el cliente
-    if (!nombreInput) return alert("El nombre es obligatorio.");
+    if (!nombreInput) return alert("The name is required.");
 
     if (nombresExistentes.includes(nombreInput.toLowerCase())) {
-        return alert("¡Error! Ya existe un producto con el nombre: " + nombreInput);
+        return alert("¡Error! already exists the product: " + nombreInput);
     }
 
     if (barcodeInput !== "" && barcodesExistentes.includes(barcodeInput)) {
-        return alert("¡Error! El código de barras " + barcodeInput + " ya está registrado.");
+        return alert("¡Error! The barcode " + barcodeInput + " is already registered.");
     }
 
     const data = {
@@ -357,7 +357,7 @@ async function guardarEdicionProducto() {
 }
 
 async function editarCategoria(id, nombreActual) {
-    const nuevoNombre = prompt("Editar nombre de categoría:", nombreActual);
+    const nuevoNombre = prompt("Edit category name:", nombreActual);
     if (nuevoNombre && nuevoNombre !== nombreActual) {
         const res = await apiRequest("api/categories_api.php", "PUT", {
             id_category: id,
@@ -372,31 +372,31 @@ async function editarCategoria(id, nombreActual) {
 
 <div id="modalEditarProducto" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000;">
     <div style="background:white; width:450px; margin:50px auto; padding:20px; border-radius:8px;">
-        <h3>Editar Producto</h3>
+        <h3>Edit Product</h3>
         
         <input type="hidden" id="edit_prod_id">
         
-        <label>Nombre</label>
+        <label>Name</label>
         <input type="text" id="edit_prod_name" style="width:100%; margin-bottom:10px;">
         
-        <label>Código de Barras</label>
+        <label>Barcode</label>
         <input type="text" id="edit_prod_barcode" style="width:100%; margin-bottom:10px;">
         
-        <label>Precio Compra</label>
+        <label>Cost Price</label>
         <input type="number" id="edit_prod_purchase" step="0.01" style="width:100%; margin-bottom:10px;">
         
-        <label>Precio Venta</label>
+        <label>Sale Price</label>
         <input type="number" id="edit_prod_sale" step="0.01" style="width:100%; margin-bottom:10px;">
         
-        <label>Stock Mínimo</label>
+        <label>Minimum Stock</label>
         <input type="number" id="edit_prod_stock" style="width:100%; margin-bottom:10px;">
         
-        <label>Unidad de Medida</label>
+        <label>Measurement Unit</label>
         <input type="text" id="edit_prod_unit" style="width:100%; margin-bottom:10px;">
         
         <div style="margin-top:15px;">
-            <button onclick="guardarEdicionProducto()" class="btn-guardar" style="width:100%; padding:10px;">Actualizar Producto</button>
-            <button onclick="cerrarModalProducto()" style="background:#ccc; border:none; padding:10px; width:100%; margin-top:5px; cursor:pointer;">Cancelar</button>
+            <button onclick="guardarEdicionProducto()" class="btn-guardar" style="width:100%; padding:10px;">Update Product</button>
+            <button onclick="cerrarModalProducto()" style="background:#ccc; border:none; padding:10px; width:100%; margin-top:5px; cursor:pointer;">Cancel</button>
         </div>
     </div>
 </div>

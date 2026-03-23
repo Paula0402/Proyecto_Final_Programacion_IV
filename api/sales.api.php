@@ -29,5 +29,5 @@ if ($method == "POST") {
         ":total" => $data["total"]
     ]);
 
-    echo json_encode(["message"=>"Venta creada"]);
+    echo json_encode(["message"=>"sale created"]);
 }

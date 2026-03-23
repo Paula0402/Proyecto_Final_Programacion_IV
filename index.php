@@ -34,26 +34,26 @@ if (isset($_SESSION['user_id'])) {
         </svg>
     </div>
 
-    <h4 class="login-title">Iniciar Sesión</h4>
+    <h4 class="login-title">Sign In</h4>
 
     <?php if (isset($_GET['error'])): ?>
-        <div class="error">Usuario o contraseña incorrectos</div>
+        <div class="error">Invalid username or password</div>
     <?php endif; ?>
 
     <form action="login.php" method="POST">
 
         <div class="mb-3">
-            <label class="form-label">Usuario</label>
+            <label class="form-label">Username</label>
             <input type="text" name="username" class="form-control" required>
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Contraseña</label>
+            <label class="form-label">Password</label>
             <input type="password" name="password" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-login w-100">
-            Ingresar
+            Sign In
         </button>
 
     </form>

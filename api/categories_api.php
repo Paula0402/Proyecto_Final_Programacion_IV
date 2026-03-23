@@ -14,7 +14,7 @@ try {
     if ($method == "POST") {
         $stmt = $pdo->prepare("INSERT INTO product_categories (category_name) VALUES (:name)");
         $stmt->execute([":name" => $data["category_name"]]);
-        echo json_encode(["message" => "Categoría agregada"]);
+        echo json_encode(["message" => "Category added successfully"]);
     }
 
     if ($method == "PUT") {
@@ -23,13 +23,13 @@ try {
             ":name" => $data["category_name"],
             ":id"   => $data["id_category"]
         ]);
-        echo json_encode(["message" => "Categoría actualizada"]);
+        echo json_encode(["message" => "Category updated successfully"]);
     }
 
     if ($method == "DELETE") {
         $stmt = $pdo->prepare("DELETE FROM product_categories WHERE id_category = :id");
         $stmt->execute([":id" => $data["id_category"]]);
-        echo json_encode(["message" => "Categoría eliminada"]);
+        echo json_encode(["message" => "Category deleted successfully"]);
     }
 } catch (PDOException $e) {
     http_response_code(500);
