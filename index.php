@@ -136,8 +136,6 @@ body{
 
 </body>
 </html>
-<<<<<<< Updated upstream
-=======
 
 <?php if (isset($_GET['error']) && $_GET['error'] === 'locked'): ?>
 <div id="modalBloqueo" style="display: flex; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center; font-family: sans-serif;">
@@ -179,4 +177,3 @@ body{
     }
 </script>
 <?php endif; ?>
->>>>>>> Stashed changes

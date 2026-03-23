@@ -84,12 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['username'] = $user['full_name'];
     $_SESSION['user_role'] = (int)$user['id_role'];
 
-<<<<<<< Updated upstream
-    $role_names = [1 => 'Admin', 2 => 'Odontólogo', 3 => 'Bodega', 4 => 'Recepción'];
-    $_SESSION['role_name'] = $role_names[$_SESSION['user_role']] ?? 'Invitado';
-
-=======
->>>>>>> Stashed changes
     log_auth_attempt($pdo, $username, 'login success', (int)$user['id_user'], 0);
     $pdo->prepare("UPDATE users SET last_login = NOW(), failed_attempts = 0, lock_until = NULL WHERE id_user = :id")
         ->execute([':id' => $user['id_user']]);
