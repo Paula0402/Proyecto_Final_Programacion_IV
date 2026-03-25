@@ -13,7 +13,7 @@ try {
     // --- OBTENER USUARIOS ---
     if ($method == "GET") {
         // Añadí recovery_code a la consulta por si necesitas consultarlo desde el admin
-        $stmt = $pdo->query("SELECT id_user, full_name, email, phone, id_role, active, recovery_code FROM users");
+        $stmt = $pdo->query("SELECT id_user, full_name, email, phone, id_role, active, recovery_code FROM users WHERE active = 1");
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
@@ -89,15 +89,40 @@ try {
         echo json_encode(["message" => "User updated successfully"]);
     }
 
-    // --- ELIMINAR USUARIO ---
-    if ($method == "DELETE") {
-        if (empty($data["id_user"])) throw new Exception("ID of user not provided");
-
-        $stmt = $pdo->prepare("DELETE FROM users WHERE id_user = :id");
-        $stmt->execute([":id" => $data["id_user"]]);
-
-        echo json_encode(["message" => "User deleted successfully"]);
+ // --- DESACTIVAR USUARIO (SOFT DELETE) ---
+if ($method == "DELETE") {
+    // 1. Validar que recibimos el ID
+    if (empty($data["id_user"])) {
+        throw new Exception("ID of user not provided");
     }
+
+    try {
+        // 2. Llamar al procedimiento de desactivación que arreglamos antes
+        // Este procedimiento solo hace un UPDATE active = 0, no borra la fila
+        $stmt = $pdo->prepare("CALL sp_users_deactivate(:id)");
+        $stmt->execute([":id" => $data["id_user"]]);
+        
+        // Obtenemos el conteo de filas afectadas desde el procedimiento
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result && $result['rows_affected'] > 0) {
+            echo json_encode([
+                "status" => "success",
+                "message" => "User deactivated successfully (Soft Delete)"
+            ]);
+        } else {
+            // Si rows_affected es 0, es porque el ID no existe o ya estaba desactivado
+            throw new Exception("User not found or already inactive");
+        }
+
+    } catch (PDOException $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Could not deactivate user",
+            "error" => $e->getMessage()
+        ]);
+    }
+}
 
 } catch (Exception $e) {
     ob_clean(); 

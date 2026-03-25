@@ -152,18 +152,26 @@
         });
     }
 
-    function eliminarUsuario(id) {
-        if (!confirm("¿You are sure to the delete this user?")) return;
-        fetch("api/users_api.php", {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_user: id })
-        })
-        .then(res => res.json())
-        .then(res => {
+function eliminarUsuario(id) {
+    if (!confirm("Are you sure you want to delete this user?")) return;
+
+    fetch("api/users_api.php", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_user: id })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.error) {
+            alert(res.message + "\n" + res.error);
+        } else {
             alert(res.message);
-            cargarUsuarios();
-        });
+        }
+        cargarUsuarios();
+    })
+    .catch(() => {
+        alert("Error deleting user. Please try again later.");
+    });
     }
 
     function prepararEdicion(user) {

@@ -80,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST">
-        <input type="password" name="new_password" placeholder="New password" required minlength="6">
-        <input type="password" name="confirm_password" placeholder="Confirm password" required minlength="6">
+        <input type="password" name="new_password" placeholder="New password" required minlength="5">
+        <input type="password" name="confirm_password" placeholder="Confirm password" required minlength="5">
         <button type="submit">Update Password</button>
     </form>
 </div>
