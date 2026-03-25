@@ -421,3 +421,97 @@ table {
 #inventory .btn-primary:hover {
     background-color: var(--color1) !important;
 }
+
+/* Modo oscuro */
+
+body.dark-mode {
+    --color1: #2b2c37;   /* fondo principal oscuro */
+    --color2: #7b7a7c;   /* botones */
+    --color3: #9f9e9e;   /* elementos secundarios */
+    --color4: #cecece;   /* fondos suaves */
+    --color5: #1f2028;   /* fondo más oscuro (ajustado para contraste) */
+    --color6: #BFD4EC;   /* detalles azules */
+}
+
+#darkModeBtn {
+    width: 100%;
+}
+
+/* FIX modo oscuro */
+body.dark-mode {
+    color: #EAEAEA;
+}
+
+/* contenido */
+body.dark-mode .content {
+    background: #1f2028;
+}
+
+/* tablas */
+body.dark-mode table {
+    background: #2b2c37;
+    color: #EAEAEA;
+}
+
+body.dark-mode thead th {
+    color: #BFD4EC;
+}
+
+body.dark-mode tbody tr {
+    background: #2b2c37;
+}
+
+body.dark-mode tbody tr:hover {
+    background: #3a3b47;
+}
+
+/* inputs */
+body.dark-mode input,
+body.dark-mode select {
+    background: #2b2c37;
+    color: #EAEAEA;
+}
+
+/* forms */
+body.dark-mode form {
+    background: #2b2c37;
+}
+
+/* sidebar botones */
+body.dark-mode .side-btn {
+    background: #3a3b47;
+}
+
+body.dark-mode .side-btn:hover {
+    background: #5a5b66;
+}
+
+/* botón activo */
+body.dark-mode .side-btn.active {
+    background: #7FA9D6;
+    color: #1f2028;
+}
+
+/* inputs texto visible */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #2b2c37;
+    color: #ffffff;
+    border: 1px solid #5a5b66;
+}
+
+/* placeholder visible */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #9f9e9e;
+}
+
+/* el color del focus */
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    outline: none;
+    border: 1px solid #7FA9D6;
+    box-shadow: 0 0 5px rgba(127, 169, 214, 0.5);
+}

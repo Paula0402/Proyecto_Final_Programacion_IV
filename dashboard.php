@@ -179,6 +179,9 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
         <!-- logout -->
         <a href="logout.php" class="logout-btn mt-3">Sign Out</a>
 
+        <!-- Modo oscuro -->
+        <button id="darkModeBtn" class="logout-btn mt-2">Modo oscuro</button>
+
     </div>
 
     <!-- contenido principal -->
@@ -233,8 +236,10 @@ function tab(value){
 tab('<?php echo $tab; ?>');
 
 
-//  auto ocultar después de 2 minutos
+// DOM listo
 document.addEventListener("DOMContentLoaded", function() {
+
+    // auto ocultar mensaje después de 2 minutos
     const flash = document.querySelector('.flash-message');
     if (flash) {
         setTimeout(() => {
@@ -243,6 +248,27 @@ document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => flash.remove(), 500);
         }, 120000);
     }
+
+    // 🌙 modo oscuro
+    const btn = document.getElementById("darkModeBtn");
+
+    if (btn) {
+        btn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("modo", "oscuro");
+            } else {
+                localStorage.setItem("modo", "claro");
+            }
+        });
+    }
+
+    // cargar preferencia guardada
+    if (localStorage.getItem("modo") === "oscuro") {
+        document.body.classList.add("dark-mode");
+    }
+
 });
 </script>
 
