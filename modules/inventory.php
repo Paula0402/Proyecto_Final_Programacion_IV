@@ -361,7 +361,7 @@ async function editarCategoria(id, nombreActual) {
     if (nuevoNombre && nuevoNombre !== nombreActual) {
         const res = await apiRequest("api/categories_api.php", "PUT", {
             id_category: id,
-            name_category: nuevoNombre
+            category_name: nuevoNombre
         });
         alert(res.message);
         cargarCategorias();

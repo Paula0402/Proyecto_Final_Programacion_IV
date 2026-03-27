@@ -28,16 +28,25 @@ body.login-page{
     box-shadow:0 12px 28px var(--color1);
 }
 
-/* avatar */
+/* LOGO */
 .login-page .avatar{
-    width:90px;
-    height:90px;
-    background:#e0e0e0;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:0 auto 25px auto;
+    width: 140px;       
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* imagen */
+.login-page .avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 
@@ -154,36 +163,41 @@ body {
     gap: 15px;
 }
 
-/* Caja usuario */
+/* contenedor usuario */
 .user-box {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
+    gap: 15px; 
+    padding: 10px;
 }
 
-/* Nombre usuario */
+/* nombre */
 .user-box p {
-    font-size: 27px;
+    font-size: 18px; 
     font-weight: 600;
     margin: 0;
     color: white;
 }
 
-/* avatar usuario */
 .user-avatar {
-    width: 50px;
-    height: 50px;
-    background: #e0e0e0;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
+    overflow: hidden;
+    background: white;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* 🔥 sombra */
 }
 
-.user-avatar svg {
-    width: 28px;
-    fill: var(--color2);
+/* imagen */
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px; 
 }
 
 /* buscador */
@@ -531,8 +545,166 @@ body.dark-mode h2 {
 
 body.dark-mode h3 {
     background: var(--color7);
-    color: #1f2028; /* ← ESTO es lo que te falta */
+    color: #1f2028; 
     padding: 8px 12px;
     border-radius: 10px;
     display: inline-block;
+}
+
+.login-page .forgot-password {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.login-page .forgot-password a {
+    color: var(--color4);
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.login-page .forgot-password a:hover {
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.login-page .login-card {
+    background: var(--color1) !important;
+    border-radius: 20px;
+    padding: 45px 35px;
+    width: 380px;
+    box-shadow: 0 20px 40px rgba(30, 58, 95, 0.35);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.6s ease;
+}
+
+.login-page .avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 25px auto;
+}
+
+.login-page .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.login-page .login-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.login-page .form-control {
+    border-radius: 12px !important;
+    padding: 12px;
+    border: none !important;
+    background: var(--color5) !important;
+    transition: 0.2s;
+}
+
+.login-page .form-control:focus {
+    background: white !important;
+    box-shadow: 0 0 0 2px var(--color3) !important;
+}
+
+.login-page .btn-login {
+    background: linear-gradient(135deg, var(--color2), var(--color4)) !important;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px;
+    border-radius: 14px;
+    transition: 0.3s;
+}
+
+.login-page .btn-login:hover {
+    background: linear-gradient(135deg, var(--color1), var(--color2)) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.login-page .error {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ffdede;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reset-card {
+    background: var(--color1);
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 360px;
+    box-shadow: 0 15px 35px rgba(30,58,95,0.3);
+    text-align: center;
+    color: white;
+}
+
+.reset-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.reset-card form > * {
+    margin-bottom: 15px;
+}
+
+.reset-card input {
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: var(--color5);
+}
+
+.reset-card button {
+    margin-top: 20px !important;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+.reset-logo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px auto;
+}
+
+.reset-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.reset-card .form-group {
+    margin-bottom: 18px;
+}
+
+.code-input {
+    font-size: 26px;
+    letter-spacing: 10px;
+    font-weight: bold;
 }

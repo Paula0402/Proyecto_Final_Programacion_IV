@@ -26,12 +26,7 @@ if (isset($_SESSION['user_id'])) {
 <div class="login-card">
 
     <div class="avatar">
-        <svg viewBox="0 0 24 24">
-            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 
-            2.3-5 5 2.3 5 5 5zm0 
-            2c-3.3 0-10 1.7-10 
-            5v3h20v-3c0-3.3-6.7-5-10-5z"/>
-        </svg>
+        <img src="img/IsotipoSloganNombre1.png" alt="Logo">
     </div>
 
     <h4 class="login-title">Sign In</h4>
@@ -55,7 +50,9 @@ if (isset($_SESSION['user_id'])) {
         <button type="submit" class="btn btn-login w-100">
             Sign In
         </button>
-        <div>You forgot your password? <a href="forgot_password.php">Click here</a></div>
+        <div class="forgot-password">
+            <a href="forgot_password.php">Forgot your password? Clic here</a>
+        </div>
 
     </form>
 
