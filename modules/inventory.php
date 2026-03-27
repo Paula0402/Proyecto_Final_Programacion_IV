@@ -173,6 +173,18 @@
         cargarCategorias();
     }
 
+    async function editarCategoria(id, nombreActual) {
+    const nuevoNombre = prompt("Edit category name:", nombreActual);
+    if (nuevoNombre && nuevoNombre !== nombreActual) {
+        const res = await apiRequest("api/categories_api.php", "PUT", {
+            id_category: id,
+            category_name: nuevoNombre
+        });
+        alert(res.message);
+        cargarCategorias();
+    }
+}
+
     // --- LÓGICA DE PRODUCTOS ---
 let nombresExistentes = [];
 let barcodesExistentes = [];
@@ -356,17 +368,7 @@ async function guardarEdicionProducto() {
     }
 }
 
-async function editarCategoria(id, nombreActual) {
-    const nuevoNombre = prompt("Edit category name:", nombreActual);
-    if (nuevoNombre && nuevoNombre !== nombreActual) {
-        const res = await apiRequest("api/categories_api.php", "PUT", {
-            id_category: id,
-            category_name: nuevoNombre
-        });
-        alert(res.message);
-        cargarCategorias();
-    }
-}
+
 </script>
 
 

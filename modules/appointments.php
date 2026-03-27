@@ -16,15 +16,19 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Doctor</label>
-            <select name="assigned_user" required>
-                <option value="">Select Doctor</option>
-                <?php foreach($users_data as $u){
-                    echo '<option value="'.htmlspecialchars($u['id_user']).'">'.htmlspecialchars($u['full_name']).'</option>';
-                } ?>
-            </select>
-        </div>
+        
+<div class="form-group">
+    <label>Doctor</label>
+    <select name="assigned_user" required>
+        <option value="">Select Doctor</option>
+        <?php foreach($users_data as $u){
+            // Solo imprimimos la opción si el estatus es igual a 1
+            if($u['active'] == 1) {
+                echo '<option value="'.htmlspecialchars($u['id_user']).'">'.htmlspecialchars($u['full_name']).'</option>';
+            }
+        } ?>
+    </select>
+</div>
 
         <div class="form-group">
             <label>Scheduled Date</label>
