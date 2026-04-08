@@ -160,7 +160,9 @@ body {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    height: 100vh; /* que ocupe toda la altura */
     gap: 15px;
+    position: relative; /* necesario si queremos colocar elementos absolutos */
 }
 
 /* contenedor usuario */
@@ -448,8 +450,25 @@ body.dark-mode {
     --color7: #7FA9D6;   /* acento */
 }
 
+
+/* Dark Mode al final, más compacto */
 #darkModeBtn {
-    width: 100%;
+    margin-top: auto;      /* empuja hacia abajo */
+    margin-bottom: 20px;   /* separación con borde inferior */
+    align-self: center;    /* centra horizontalmente */
+    width: 80%;            /* más compacto */
+    padding: 6px 0;        /* menos alto */
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: var(--color4);
+    color: rgb(23, 22, 22);
+    transition: 0.2s;
+    flex-shrink: 0;        /* evita que se comprima */
+}
+
+#darkModeBtn:hover {
+    background-color: var(--color2);
+    transform: translateY(-1px);
 }
 
 /* FIX modo oscuro */
@@ -550,6 +569,15 @@ body.dark-mode h3 {
     border-radius: 10px;
     display: inline-block;
 }
+
+.dark-mode-container {
+    margin-top: auto;       /* empuja al fondo del sidebar */
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+}
+
+/* login */
+
 
 .login-page .forgot-password {
     margin-top: 18px;
@@ -707,4 +735,167 @@ body.dark-mode h3 {
     font-size: 26px;
     letter-spacing: 10px;
     font-weight: bold;
+}
+
+/* modal de bloqueo por intentos */
+
+/* modal de bloqueo*/
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+
+    z-index: 9999;
+
+    animation: fadeIn 0.3s ease;
+}
+
+/* Caja principal */
+.modal-box {
+    background: white;
+    padding: 35px 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+
+    border-top: 5px solid var(--color1);
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+
+    animation: slideUp 0.35s ease;
+}
+
+/* Icono */
+.modal-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+    animation: pop 0.4s ease;
+}
+
+/* Título */
+.modal-title {
+    color: var(--color1);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Texto principal */
+.modal-text {
+    color: #555;
+    line-height: 1.6;
+    font-size: 14.5px;
+}
+
+/* Línea divisora */
+.modal-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* Texto secundario */
+.modal-subtext {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* Botones */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Botón recuperar */
+.btn-recover {
+    flex: 1;
+    background: linear-gradient(135deg, var(--color2), var(--color3));
+    color: white;
+    padding: 11px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.btn-recover:hover {
+    background: linear-gradient(135deg, var(--color1), var(--color2));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Botón cerrar */
+.btn-close {
+    flex: 1;
+    background: #f1f1f1;
+    color: var(--color1);
+    border: none;
+    padding: 11px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-close:hover {
+    background: #e0e0e0;
+}
+
+/* algunas animaciones */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* que sea responsivo */
+
+@media (max-width: 480px) {
+    .modal-box {
+        padding: 25px 20px;
+    }
+
+    .modal-title {
+        font-size: 20px;
+    }
+
+    .modal-text {
+        font-size: 13.5px;
+    }
 }

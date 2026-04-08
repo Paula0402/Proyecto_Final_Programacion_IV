@@ -158,9 +158,6 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
     <!-- sidebar -->
     <div class="sidebar">
 
-        <!-- buscador -->
-        <input type="text" class="search-bar" placeholder="Search...">
-
         <!-- usuario -->
         <div class="user-box">
                 <!-- logo -->
@@ -183,7 +180,9 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
         <a href="logout.php" class="logout-btn mt-3">Sign Out</a>
 
         <!-- Modo oscuro -->
-        <button id="darkModeBtn" class="logout-btn mt-2">Dark Mode</button>
+        <div class="dark-mode-container">
+            <button id="darkModeBtn" class="logout-btn mt-2">Dark Mode</button>
+        </div>
 
     </div>
 
