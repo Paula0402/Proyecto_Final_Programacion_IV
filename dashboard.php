@@ -89,13 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['action'])) {
                 $batchId = (int)($_POST['sale_batch_id'] ?? 0);
                 $saleQty = (int)($_POST['sale_quantity'] ?? 0);
                 $price = (float)($_POST['sale_price'] ?? 0);
+                $saleStatus = (int)($_POST['sale_status'] ?? 1);
                 if (!$patientId || !$batchId || $saleQty <= 0 || $price <= 0) { throw new Exception('Incomplete sale data.'); }
                 $available = (int)$pdo->query("SELECT current_quantity FROM batches WHERE id_batch = $batchId")->fetchColumn();
                 if ($saleQty > $available) { throw new Exception('Insufficient stock in the selected batch.'); }
                 $pdo->beginTransaction();
                 $subtotal = $saleQty * $price;
                 $tax = 0; $total = $subtotal + $tax;
-                $pdo->prepare("INSERT INTO sales (id_patient, id_user, id_appointment, subtotal, tax, total, payment_method, id_sale_status) VALUES (:id_patient, :id_user, NULL, :subtotal, :tax, :total, 'Cash', 1)")->execute([':id_patient'=>$patientId, ':id_user'=>$_SESSION['user_id'], ':subtotal'=>$subtotal, ':tax'=>$tax, ':total'=>$total]);
+                $pdo->prepare("INSERT INTO sales (id_patient, id_user, id_appointment, subtotal, tax, total, payment_method, id_sale_status) VALUES (:id_patient, :id_user, NULL, :subtotal, :tax, :total, :payment_method, :id_sale_status)")->execute([':id_patient'=>$patientId, ':id_user'=>$_SESSION['user_id'], ':subtotal'=>$subtotal, ':tax'=>$tax, ':total'=>$total, ':payment_method'=>'Cash', ':id_sale_status'=>$saleStatus]);
                 $saleId = $pdo->lastInsertId();
                 $batchProductId = (int)$pdo->query("SELECT id_product FROM batches WHERE id_batch = $batchId")->fetchColumn();
                 $pdo->prepare("INSERT INTO sale_details (id_sale, id_product, id_movement, quantity, unit_price, subtotal) VALUES (:id_sale, :id_product, :id_movement, :quantity, :unit_price, :subtotal)")->execute([':id_sale'=>$saleId, ':id_product'=>$batchProductId, ':id_movement'=>NULL, ':quantity'=>$saleQty, ':unit_price'=>$price, ':subtotal'=>$subtotal]);
@@ -116,14 +117,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['action'])) {
 
 $flash = $_GET['msg'] ?? '';
 
+// Intento de añadir soft delete en 'sales' si no existe (una sola vez, sin romper si ya existe)
+try {
+    $pdo->exec("ALTER TABLE sales ADD COLUMN active TINYINT(1) NOT NULL DEFAULT 1");
+} catch (PDOException $e) {
+    // La columna ya existe o la migración ya fue aplicada; lo ignoramos
+}
+
 // Carga de datos para módulos (igual que antes)
 $users_data = $pdo->query("SELECT id_user, full_name, email, id_role, active FROM users ORDER BY full_name")->fetchAll(PDO::FETCH_ASSOC);
-$products_data = $pdo->query("SELECT id_product, product_name FROM products ORDER BY product_name")->fetchAll(PDO::FETCH_ASSOC);
+$products_data = $pdo->query("SELECT id_product, product_name, sale_price FROM products ORDER BY product_name")->fetchAll(PDO::FETCH_ASSOC);
 $patients_data = $pdo->query("SELECT id_patient, CONCAT(first_name,' ',last_name) AS full_name, id_card, phone FROM patients ORDER BY first_name")->fetchAll(PDO::FETCH_ASSOC);
 $appointments_data = $pdo->query("SELECT a.id_appointment, CONCAT(p.first_name,' ',p.last_name) AS patient_name, u.full_name AS doctor_name, a.appointment_date, a.appointment_time, s.status_name AS status, a.reason FROM appointments a LEFT JOIN patients p ON a.id_patient=p.id_patient LEFT JOIN users u ON a.id_dentist_user=u.id_user LEFT JOIN appointment_statuses s ON a.id_appointment_status=s.id_status ORDER BY a.appointment_date DESC, a.appointment_time DESC")->fetchAll(PDO::FETCH_ASSOC);
 $batches_data = $pdo->query("SELECT b.id_batch, b.id_product, b.batch_number, b.current_quantity, b.expiration_date, b.initial_quantity, p.product_name FROM batches b LEFT JOIN products p ON b.id_product=p.id_product ORDER BY b.expiration_date ASC")->fetchAll(PDO::FETCH_ASSOC);
 $movements_data = $pdo->query("SELECT im.id_movement, b.id_batch AS batch_id, p.product_name AS product_name, im.quantity, mt.type_name AS type, im.justification, im.movement_date, u.full_name AS user_name FROM inventory_movements im LEFT JOIN batches b ON im.id_batch=b.id_batch LEFT JOIN products p ON b.id_product=p.id_product LEFT JOIN users u ON im.id_user=u.id_user LEFT JOIN movement_types mt ON im.id_movement_type=mt.id_type ORDER BY im.movement_date DESC")->fetchAll(PDO::FETCH_ASSOC);
-$sales_data = $pdo->query("SELECT s.id_sale, s.id_patient, CONCAT(p.first_name,' ',p.last_name) AS patient_name, s.total, s.sale_date, u.full_name AS user_name, ss.status_name AS status FROM sales s LEFT JOIN patients p ON s.id_patient=p.id_patient LEFT JOIN users u ON s.id_user=u.id_user LEFT JOIN sale_statuses ss ON s.id_sale_status=ss.id_status ORDER BY s.sale_date DESC")->fetchAll(PDO::FETCH_ASSOC);
+$sales_data = $pdo->query("SELECT s.id_sale, s.id_patient, s.id_user, s.id_sale_status, CONCAT(p.first_name,' ',p.last_name) AS patient_name, s.total, s.sale_date, u.full_name AS user_name, ss.status_name AS status FROM sales s LEFT JOIN patients p ON s.id_patient=p.id_patient LEFT JOIN users u ON s.id_user=u.id_user LEFT JOIN sale_statuses ss ON s.id_sale_status=ss.id_status WHERE s.active = 1 ORDER BY s.sale_date DESC")->fetchAll(PDO::FETCH_ASSOC);
 $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.unit_price, sd.subtotal, sd.id_movement FROM sale_details sd LEFT JOIN products p ON sd.id_product=p.id_product")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
