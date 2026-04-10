@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_login DATETIME DEFAULT NULL,
     failed_attempts INT NOT NULL DEFAULT 0,
     lock_until DATETIME DEFAULT NULL,
+    recovery_code INT NULL DEFAULT NULL,
     CONSTRAINT fk_user_role FOREIGN KEY (id_role) REFERENCES roles(id_role)
 );
 
