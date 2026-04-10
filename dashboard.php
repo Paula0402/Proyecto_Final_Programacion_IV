@@ -13,9 +13,11 @@ $user_role = $_SESSION['user_role'] ?? 4;
 
 $all_tabs = [
     'authentication' => 'Authentication and Users',
+    'patients' => 'Patient Management',
     'appointments' => 'Appointments and Patients',
     'inventory' => 'Inventory and Products',
     'sales' => 'Sales and Payments',
+    'logs' => 'System Logs',
 ];
 
 $allowed_tabs = [];
@@ -23,7 +25,7 @@ switch ($user_role) {
     case 1: $allowed_tabs = array_keys($all_tabs); break;
     case 2: $allowed_tabs = ['appointments', 'inventory']; break;
     case 3: $allowed_tabs = ['inventory']; break;
-    case 4: $allowed_tabs = ['appointments', 'sales']; break;
+    case 4: $allowed_tabs = ['patients','appointments', 'sales']; break;
     default: $allowed_tabs = ['appointments']; break;
 }
 
@@ -201,6 +203,8 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
             <?php include __DIR__ . '/modules/appointments.php'; ?>
             <?php include __DIR__ . '/modules/inventory.php'; ?>
             <?php include __DIR__ . '/modules/sales.php'; ?>
+            <?php include __DIR__ . '/modules/patients.php'; ?>
+            <?php include __DIR__ . '/modules/logs.php'; ?>
 
         </div>
     </div>
@@ -210,7 +214,7 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
 <!-- script para cambiar pestañas -->
 <script>
 function tab(value){
-    const sections = ['authentication','appointments','inventory','sales'];
+    const sections = ['authentication','appointments','inventory','sales','patients','medical_history','logs'];
 
     sections.forEach(section => {
         const el = document.getElementById(section);
