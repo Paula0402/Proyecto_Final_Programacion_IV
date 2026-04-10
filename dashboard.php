@@ -164,7 +164,7 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
         <div class="user-box">
                 <!-- logo -->
             <div class="user-avatar">
-                <img src="img/Isotipo.png" alt="Logo">
+                <img src="img/IsotipoSinFondo.png" alt="Logo">
             </div>
 
             <p><strong><?php echo htmlspecialchars($_SESSION['fullname'] ?? $_SESSION['username']); ?></strong></p>

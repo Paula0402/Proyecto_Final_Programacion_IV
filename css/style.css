@@ -103,9 +103,7 @@ body.login-page{
 }
 
 
-
 /* CSS General */
-
 
 /* Base */
 * {
@@ -261,8 +259,6 @@ body {
     min-height: 80vh;
 }
 
-
-
 /* Formularios */
 form {
     background: var(--color3);
@@ -311,7 +307,6 @@ input, select {
 
 /* Tabla */
 table {
-    background: white;
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 10px;
@@ -324,11 +319,6 @@ thead th {
     color: var(--color1);
 }
 
-/* Filas */
-tbody tr {
-    background: var(--color5);
-    border-radius: 12px;
-}
 
 /* Celdas */
 td {
@@ -358,8 +348,6 @@ table {
     box-shadow: 0 6px 15px rgba(34, 30, 30, 0.1);
 }
 
-
-
 /* authentication */
 
 #authentication label {
@@ -378,8 +366,6 @@ table {
     margin-top: 25px;  
     margin-bottom: 15px; 
 }
-
-
 
 
 /* inventario */
@@ -438,7 +424,9 @@ table {
     background-color: var(--color1) !important;
 }
 
-/* Modo oscuro */
+
+
+/* Modo oscuro ------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
 body.dark-mode {
     --color1: #2b2c37;   /* fondo principal oscuro */
@@ -449,6 +437,7 @@ body.dark-mode {
     --color6: #BFD4EC;   /* detalles azules */
     --color7: #7FA9D6;   /* acento */
 }
+
 
 
 /* Dark Mode al final, más compacto */
@@ -467,7 +456,7 @@ body.dark-mode {
 }
 
 #darkModeBtn:hover {
-    background-color: var(--color2);
+    background-color: var(--color4);
     transform: translateY(-1px);
 }
 
@@ -488,7 +477,7 @@ body.dark-mode table {
 }
 
 body.dark-mode thead th {
-    color: #BFD4EC;
+    color: var(--color6);
 }
 
 body.dark-mode tbody tr {
@@ -574,6 +563,21 @@ body.dark-mode h3 {
     margin-top: auto;       /* empuja al fondo del sidebar */
     display: flex;
     justify-content: center; /* centra horizontalmente */
+}
+
+/* Tablas daark mode*/
+body.dark-mode table {
+    background: #2b2c37 !important;
+}
+
+body.dark-mode tbody tr {
+    background: #2b2c37 !important;
+}
+
+body.dark-mode td,
+body.dark-mode th {
+    background: #2b2c37 !important;
+    color: #EAEAEA !important;
 }
 
 /* login */
