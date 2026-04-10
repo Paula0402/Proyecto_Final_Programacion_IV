@@ -160,7 +160,10 @@ body {
     flex-direction: column;
     height: 100vh; /* que ocupe toda la altura */
     gap: 15px;
-    position: relative; /* necesario si queremos colocar elementos absolutos */
+    position: fixed;   /* nuevo */
+    top: 20px;         /* nuevo */
+    left: 20px;        /* nuevo */
+    height: calc(100vh - 40px); /* nuevo */
 }
 
 /* contenedor usuario */
@@ -241,6 +244,7 @@ body {
 /* Contenido principal */
 .main-content {
     flex: 1;
+    margin-left: 290px; /* ancho sidebar */
 }
 
 /* Ojo: corregir bootstrap container */
