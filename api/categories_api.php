@@ -27,13 +27,11 @@ try {
     }
 
  if ($method == "DELETE") {
-    // 1. Validar que recibimos el ID
     if (empty($data["id_category"])) {
         throw new Exception("ID of category not provided");
     }
 
     try {
-        // 2. Llamar al procedimiento de desactivación que arreglamos antes
         // Este procedimiento solo hace un UPDATE active = 0, no borra la fila
         $stmt = $pdo->prepare("CALL sp_product_categories_deactivate(:id)");
         $stmt->execute([":id" => $data["id_category"]]);

@@ -4,11 +4,11 @@ require_once "../config/db.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-// --- Dentro de inventory_movements_api.php ---
+
 if ($method == "GET") {
     $sql = "SELECT 
                 m.id_movement, 
-                u.full_name as user_name, -- Usamos full_name de tu tabla 'users'
+                u.full_name as user_name, 
                 p.product_name, 
                 t.type_name, 
                 m.quantity, 
@@ -32,12 +32,12 @@ $id_batch = $data['id_product'];
 $id_type = $data['id_type'];
 $quantity = $data['quantity'];
 $id_user = $data['id_user'];
-$justification = $data['justification']; // Recibimos la justificación del JS
+$justification = $data['justification']; 
 
 try {
     $pdo->beginTransaction();
 
-    // Insertamos incluyendo la columna 'justification'
+    
     $sql = "INSERT INTO inventory_movements 
             (id_batch, id_movement_type, quantity, id_user, justification, movement_date) 
             VALUES (?, ?, ?, ?, ?, NOW())";

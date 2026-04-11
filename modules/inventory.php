@@ -294,7 +294,7 @@ async function cargarTiposMovimiento() {
 async function cargarMovimientos() {
     const res = await apiRequest("api/inventory_movements_api.php", "GET");
     
-    // Cambiamos al ID de tabla que no choca con otros módulos
+    
     const tbody = document.getElementById("movimientos_tbody_principal");
     
     if (!tbody) return;
@@ -333,7 +333,7 @@ async function crearMovimiento() {
         id_product: document.getElementById("id_batch_select").value,
         id_type: document.getElementById("id_movement_type_select").value,
         quantity: document.getElementById("mov_quantity").value,
-        justification: document.getElementById("mov_justification").value // Capturamos la justificación
+        justification: document.getElementById("mov_justification").value 
     };
 
     if(!data.id_product || !data.id_type || !data.quantity) {
@@ -345,7 +345,7 @@ async function crearMovimiento() {
 
     if(!res.error) {
         document.getElementById("mov_quantity").value = "";
-        document.getElementById("mov_justification").value = ""; // Limpiamos la justificación
+        document.getElementById("mov_justification").value = "";
         await cargarMovimientos(); 
         await cargarProductos();   
     }

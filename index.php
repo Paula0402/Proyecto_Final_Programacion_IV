@@ -98,7 +98,7 @@ if (isset($_SESSION['user_id'])) {
     // Función para cerrar el modal y limpiar la URL para que no vuelva a salir al recargar
     function cerrarModal() {
         document.getElementById('modalBloqueo').style.display = 'none';
-        // Esto limpia el "?error=locked" de la barra de direcciones sin recargar la página
+       
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 </script>

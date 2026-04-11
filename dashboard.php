@@ -36,8 +36,7 @@ $flash = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['action'])) {
     $action = $_POST['action'];
     try {
-        // aquí van todas tus acciones POST (add_appointment, close_appointment, add_batch, etc.)
-        // las copié igual que en tu código nuevo
+       
         switch ($action) {
             case 'add_appointment':
                 $patientId = (int)($_POST['patient_id'] ?? 0);
@@ -119,14 +118,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['action'])) {
 
 $flash = $_GET['msg'] ?? '';
 
-// Intento de añadir soft delete en 'sales' si no existe (una sola vez, sin romper si ya existe)
+
 try {
     $pdo->exec("ALTER TABLE sales ADD COLUMN active TINYINT(1) NOT NULL DEFAULT 1");
 } catch (PDOException $e) {
     // La columna ya existe o la migración ya fue aplicada; lo ignoramos
 }
 
-// Carga de datos para módulos (igual que antes)
+// Carga de datos para módulos 
 $users_data = $pdo->query("SELECT id_user, full_name, email, id_role, active FROM users ORDER BY full_name")->fetchAll(PDO::FETCH_ASSOC);
 $products_data = $pdo->query("SELECT id_product, product_name, sale_price FROM products ORDER BY product_name")->fetchAll(PDO::FETCH_ASSOC);
 $patients_data = $pdo->query("SELECT id_patient, CONCAT(first_name,' ',last_name) AS full_name, id_card, phone FROM patients ORDER BY first_name")->fetchAll(PDO::FETCH_ASSOC);
@@ -164,7 +163,7 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
         <div class="user-box">
                 <!-- logo -->
             <div class="user-avatar">
-                <img src="img/IsotipoSinFondo.png" alt="Logo">
+                <img src="img/Isotipo.png" alt="Logo">
             </div>
 
             <p><strong><?php echo htmlspecialchars($_SESSION['fullname'] ?? $_SESSION['username']); ?></strong></p>

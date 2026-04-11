@@ -1,5 +1,5 @@
 <?php
-// Desactivar visualización de errores para que no rompan el JSON
+
 error_reporting(0);
 ini_set('display_errors', 0);
 

@@ -71,7 +71,7 @@
 </div>
 
 <script>
-    // Configuración global de roles
+   
     const ROLES_MAP = {
         1: "Admin",
         2: "Dentist",

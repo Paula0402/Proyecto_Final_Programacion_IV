@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-require_once "../config/db.php"; // Usamos require_once para asegurar la carga
+require_once "../config/db.php"; 
 
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"), true);

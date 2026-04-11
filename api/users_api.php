@@ -97,7 +97,6 @@ if ($method == "DELETE") {
     }
 
     try {
-        // 2. Llamar al procedimiento de desactivación que arreglamos antes
         // Este procedimiento solo hace un UPDATE active = 0, no borra la fila
         $stmt = $pdo->prepare("CALL sp_users_deactivate(:id)");
         $stmt->execute([":id" => $data["id_user"]]);
