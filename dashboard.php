@@ -17,6 +17,7 @@ $all_tabs = [
     'appointments' => 'Appointments and Patients',
     'inventory' => 'Inventory and Products',
     'sales' => 'Sales and Payments',
+    'medical_history' => 'Medical Hystory',
     'logs' => 'System Logs',
 ];
 
@@ -203,6 +204,7 @@ $sale_details = $pdo->query("SELECT sd.id_sale, p.product_name, sd.quantity, sd.
             <?php include __DIR__ . '/modules/inventory.php'; ?>
             <?php include __DIR__ . '/modules/sales.php'; ?>
             <?php include __DIR__ . '/modules/patients.php'; ?>
+            <?php include __DIR__ . '/modules/medical_history.php'; ?>
             <?php include __DIR__ . '/modules/logs.php'; ?>
 
         </div>
