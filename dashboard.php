@@ -127,7 +127,7 @@ try {
 }
 
 // Carga de datos para módulos 
-$users_data = $pdo->query("SELECT id_user, full_name, email, id_role, active FROM users ORDER BY full_name")->fetchAll(PDO::FETCH_ASSOC);
+$users_data = $pdo->query("SELECT id_user, full_name, email, id_role, active FROM users WHERE id_role = 2 AND active = 1 ORDER BY full_name")->fetchAll(PDO::FETCH_ASSOC);
 $products_data = $pdo->query("SELECT id_product, product_name, sale_price FROM products ORDER BY product_name")->fetchAll(PDO::FETCH_ASSOC);
 $patients_data = $pdo->query("SELECT id_patient, CONCAT(first_name,' ',last_name) AS full_name, id_card, phone FROM patients ORDER BY first_name")->fetchAll(PDO::FETCH_ASSOC);
 $appointments_data = $pdo->query("SELECT a.id_appointment, CONCAT(p.first_name,' ',p.last_name) AS patient_name, u.full_name AS doctor_name, a.appointment_date, a.appointment_time, s.status_name AS status, a.reason FROM appointments a LEFT JOIN patients p ON a.id_patient=p.id_patient LEFT JOIN users u ON a.id_dentist_user=u.id_user LEFT JOIN appointment_statuses s ON a.id_appointment_status=s.id_status ORDER BY a.appointment_date DESC, a.appointment_time DESC")->fetchAll(PDO::FETCH_ASSOC);

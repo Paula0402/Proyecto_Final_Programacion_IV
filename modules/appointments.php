@@ -8,26 +8,25 @@
 
         <div class="form-group">
             <label>Patient</label>
-            <select name="patient_id" required>
-                <option value="">Select Patient</option>
-                <?php foreach($patients_data as $p){
-                    echo '<option value="'.htmlspecialchars($p['id_patient']).'">'.htmlspecialchars($p['full_name']).'</option>';
-                } ?>
-            </select>
+            <input type="text" id="patientSearch" name="patient_name_display" placeholder="Type patient name..." autocomplete="off" list="patientList" required>
+            <datalist id="patientList">
+                <?php foreach($patients_data as $p){ ?>
+                    <option value="<?php echo htmlspecialchars($p['full_name']); ?>" data-id="<?php echo htmlspecialchars($p['id_patient']); ?>"></option>
+                <?php } ?>
+            </datalist>
+            <input type="hidden" name="patient_id" id="patientIdHidden">
         </div>
 
         
 <div class="form-group">
     <label>Doctor</label>
-    <select name="assigned_user" required>
-        <option value="">Select Doctor</option>
-        <?php foreach($users_data as $u){
-            // Solo imprimimos la opción si el estatus es igual a 1
-            if($u['active'] == 1) {
-                echo '<option value="'.htmlspecialchars($u['id_user']).'">'.htmlspecialchars($u['full_name']).'</option>';
-            }
-        } ?>
-    </select>
+    <input type="text" id="doctorSearch" name="doctor_name_display" placeholder="Type doctor name..." autocomplete="off" list="doctorList" required>
+    <datalist id="doctorList">
+        <?php foreach($users_data as $u){ ?>
+            <option value="<?php echo htmlspecialchars($u['full_name']); ?>" data-id="<?php echo htmlspecialchars($u['id_user']); ?>"></option>
+        <?php } ?>
+    </datalist>
+    <input type="hidden" name="assigned_user" id="doctorIdHidden">
 </div>
 
         <div class="form-group">
@@ -107,6 +106,32 @@
 
 <!-- script -->
 <script>
+function syncSelection(inputId, listId, hiddenId) {
+    const input = document.getElementById(inputId);
+    const hidden = document.getElementById(hiddenId);
+    const inputValue = input.value.trim();
+    const options = document.querySelectorAll(`#${listId} option`);
+    const match = Array.from(options).find(option => option.value.toLowerCase() === inputValue.toLowerCase());
+
+    if (match) {
+        hidden.value = match.getAttribute('data-id');
+    } else {
+        hidden.value = '';
+    }
+}
+
+const patientInputEl = document.getElementById('patientSearch');
+if (patientInputEl) {
+    patientInputEl.addEventListener('input', () => syncSelection('patientSearch', 'patientList', 'patientIdHidden'));
+    patientInputEl.addEventListener('change', () => syncSelection('patientSearch', 'patientList', 'patientIdHidden'));
+}
+
+const doctorInputEl = document.getElementById('doctorSearch');
+if (doctorInputEl) {
+    doctorInputEl.addEventListener('input', () => syncSelection('doctorSearch', 'doctorList', 'doctorIdHidden'));
+    doctorInputEl.addEventListener('change', () => syncSelection('doctorSearch', 'doctorList', 'doctorIdHidden'));
+}
+
 function abrirFormulario(id) {
     document.getElementById("formCerrar").style.display = "block";
     document.getElementById("appointment_id").value = id;
