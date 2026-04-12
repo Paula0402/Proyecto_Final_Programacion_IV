@@ -230,7 +230,7 @@
         }
 
         if (tipo === 'activity') {
-            thead.innerHTML = '<tr><th>ID</th><th>Usuario</th><th>Acción</th><th>Tables</th><th>ID Registro</th><th>Valor antiguo</th><th>Valor nuevo</th><th>Fecha</th></tr>';
+            thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Action</th><th>Tables</th><th>ID</th><th>Old Value</th><th>New Value</th><th>Date</th></tr>';
             for (var i = 0; i < datos.length; i++) {
                 var r = datos[i];
                 var fila = document.createElement('tr');
@@ -254,7 +254,7 @@
                 tbody.appendChild(fila);
             }
         } else {
-            thead.innerHTML = '<tr><th>ID</th><th>Usuario</th><th>Mensaje de error</th><th>Procedimiento</th><th>Código error</th><th>Fecha</th></tr>';
+            thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Error Message</th><th>Procedure</th><th>Error Code</th><th>Date</th></tr>';
             for (var j = 0; j < datos.length; j++) {
                 var e = datos[j];
                 var filaErr = document.createElement('tr');

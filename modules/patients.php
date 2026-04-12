@@ -23,66 +23,98 @@
     <!-- Formulario para agregar paciente -->
     <section class="mt-4">
         <h3>Add Patient</h3>
+
         <div class="form-group">
             <label>ID Card *</label>
             <input type="text" id="create_id_card" class="form-control">
+        </div>
 
+        <div class="form-group">
             <label>First Name *</label>
             <input type="text" id="create_first_name" class="form-control">
+        </div>
 
+        <div class="form-group">
             <label>Last Name *</label>
             <input type="text" id="create_last_name" class="form-control">
+        </div>
 
+        <div class="form-group">
             <label>Birth Date</label>
             <input type="date" id="create_birth_date" class="form-control">
+        </div>
 
+        <div class="form-group">
             <label>Phone (8-15 digits)</label>
             <input type="text" id="create_phone" class="form-control">
+        </div>
 
+        <div class="form-group">
             <label>Email</label>
             <input type="email" id="create_email" class="form-control">
+        </div>
 
+        <div class="form-group">
             <label>Address</label>
             <input type="text" id="create_address" class="form-control">
+        </div>
 
+        <div class="form-group">
             <button class="btn btn-primary" onclick="crearPaciente()">Save Patient</button>
         </div>
     </section>
 
     <!-- Modal para editar paciente -->
     <div id="modalEditarPaciente" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
-        <div style="background:white; width:450px; margin:50px auto; padding:20px; border-radius:8px;">
+        <div class="modal-content">
             <h3>Edit Patient</h3>
-            <div class="form-group">
-                <input type="hidden" id="edit_patient_id">
+            
+            <input type="hidden" id="edit_patient_id">
 
+            <div class="form-group">
                 <label>ID Card *</label>
                 <input type="text" id="edit_patient_id_card" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>First Name *</label>
                 <input type="text" id="edit_patient_first_name" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>Last Name *</label>
                 <input type="text" id="edit_patient_last_name" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>Birth Date</label>
                 <input type="date" id="edit_patient_birth_date" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>Phone (8-15 digits)</label>
                 <input type="text" id="edit_patient_phone" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>Email</label>
                 <input type="email" id="edit_patient_email" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>Address</label>
                 <input type="text" id="edit_patient_address" class="form-control">
+            </div>
 
+            <div class="form-group">
                 <label>Status</label>
                 <select id="edit_patient_active" class="form-control">
                     <option value="1">Active</option>
                     <option value="0">Inactive</option>
                 </select>
+            </div>
 
+            <div class="form-group" style="display: flex; gap: 10px; margin-top: 20px;">
                 <button class="btn btn-primary" onclick="guardarEdicionPaciente()">Update</button>
                 <button class="btn btn-secondary" onclick="cerrarModalPaciente()">Cancel</button>
             </div>

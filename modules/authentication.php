@@ -23,8 +23,8 @@
         <div class="form-group">
             <input type="text" id="name" placeholder="Name" class="form-control">
             <input type="email" id="email" placeholder="Email" class="form-control">
-            <input type="text" id="phone" placeholder="Phone" class="form-control">
-            <input type="password" id="password" placeholder="Password" class="form-control">
+            <input type="text" id="phone" placeholder="Phone" class="form-control ">
+            <input type="password" id="password" placeholder="Password" class="form-control ">
             <select id="role" class="form-control">
                 <option value="1">Admin</option>
                 <option value="2">Dentist</option>
@@ -37,35 +37,47 @@
 
     <!-- Modal de edición -->
     <div id="modalEditar" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 1000;">
-        <div style="background:white; width:400px; padding:20px; margin:100px auto; border-radius: 8px;">
+        <div class="modal-content">
             <h3>Edit User</h3>
             <input type="hidden" id="edit_id">
 
-            <label>Name:</label>
-            <input type="text" id="edit_name" class="form-control"><br>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="edit_name" class="form-control">
+            </div>
 
-            <label>Email:</label>
-            <input type="email" id="edit_email" class="form-control"><br>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="edit_email" class="form-control">
+            </div>
 
-            <label>Phone:</label>
-            <input type="text" id="edit_phone" class="form-control"><br>
+            <div class="form-group">
+                <label>Phone:</label>
+                <input type="text" id="edit_phone" class="form-control">
+            </div>
 
-            <label>Rol:</label>
-            <select id="edit_role" class="form-control">
-                <option value="1">Admin</option>
-                <option value="2">Dentist</option>
-                <option value="3">Warehouse</option>
-                <option value="4">Receptionist</option>
-            </select><br>
+            <div class="form-group">
+                <label>Rol:</label>
+                <select id="edit_role" class="form-control">
+                    <option value="1">Admin</option>
+                    <option value="2">Dentist</option>
+                    <option value="3">Warehouse</option>
+                    <option value="4">Receptionist</option>
+                </select>
+            </div>
 
-            <label>State:</label>
-            <select id="edit_active" class="form-control">
-                <option value="1">Active</option>
-                <option value="0">Inactive</option>
-            </select><br>
+            <div class="form-group">
+                <label>State:</label>
+                <select id="edit_active" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                </select>
+            </div>
 
-            <button class="btn btn-primary" onclick="guardarEdicion()">Update</button>
-            <button class="btn" style="background:#ccc;color:black" onclick="cerrarModal()">Cancel</button>
+            <div class="form-group" style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="guardarEdicion()">Update</button>
+                <button class="btn" style="background:#ccc;color:black" onclick="cerrarModal()">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

@@ -121,7 +121,7 @@
 </div>
 
 <div id="modalEditarProducto" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000;">
-    <div style="background:white; width:450px; margin:50px auto; padding:20px; border-radius:8px;">
+    <div class="modal-content">
         <h3>Edit Product</h3>
         <input type="hidden" id="edit_prod_id">
         <label>Name</label>
