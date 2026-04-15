@@ -907,3 +907,31 @@ body.dark-mode th {
         font-size: 13.5px;
     }
 }
+
+
+
+
+/* Añadido de estilos para el modal, lo pongo aquí y Jime lo coloca donde prefiera despues :D */
+/* Estilos base del modal (modo claro) */
+.modal-content {
+    background: white;
+    color: #000000;
+    width: 400px;
+    margin: 100px auto;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Modo oscuro */
+body.dark-mode .modal-content {
+    background: #2b2c37;
+    color: #EAEAEA;
+    border: 1px solid #5a5b66;
+}
+
+/*forzar label a heredar color del modal*/
+.modal-content label {
+    color: inherit !important;
+}
