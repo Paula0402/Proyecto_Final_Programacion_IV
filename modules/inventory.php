@@ -355,7 +355,7 @@ async function eliminarMovimientoSeguro(id) {
     console.log("Intentando eliminar movimiento ID:", id); // Para depuración
     
     if (!id) return alert("No ID provided");
-    if (!confirm("¿Estás seguro de eliminar este movimiento? El stock se revertirá.")) return;
+    if (!confirm("Are you sure you want to delete this transaction? The stock will be reversed.")) return;
 
     try {
         const res = await apiRequest("api/inventory_movements_api.php", "DELETE", { id_movement: id });
@@ -368,8 +368,8 @@ async function eliminarMovimientoSeguro(id) {
             if (window.cargarProductos) await cargarProductos(); // Recargar stock
         }
     } catch (err) {
-        console.error("Error en la petición:", err);
-        alert("Error de conexión al eliminar.");
+        console.error("Request error:", err);
+        alert("An error occurred while deleting. Please try again.");
     }
 }
 

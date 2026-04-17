@@ -2,7 +2,7 @@
     <h2>Appointments and Patients</h2>
 
     <!-- Formulario -->
-    <form method="post" style="border:1px solid #ddd;padding:12px;margin-bottom:16px;">
+    <form method="post">
         <input type="hidden" name="action" value="add_appointment">
         <h4>Create Appointment</h4>
 
@@ -84,7 +84,7 @@
     </table>
 
     <!-- Formulario oculto -->
-    <div id="formCerrar" style="display:none; border:1px solid #ccc; padding:15px; margin-top:20px; background:#f9f9f9;">
+    <div id="formCerrar" class="form-cerrar" style="display:none;">
         <h4>Close Appointment</h4>
 
         <form method="post">
