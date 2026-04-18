@@ -1293,4 +1293,126 @@ BEGIN
     ORDER BY sd.id_detail;
 END //
 
+
+-- Activity Logs
+
+-- Ingresar actividad
+CREATE PROCEDURE sp_activity_logs_create(
+    IN p_id_user INT,
+    IN p_action VARCHAR(50),
+    IN p_affected_table VARCHAR(50),
+    IN p_record_id INT,
+    IN p_old_value TEXT,
+    IN p_new_value TEXT
+)
+BEGIN
+    INSERT INTO activity_logs (id_user, action, affected_table, record_id, old_value, new_value)
+    VALUES (p_id_user, p_action, p_affected_table, p_record_id, p_old_value, p_new_value);
+    
+    SELECT LAST_INSERT_ID() AS id_log;
+END //
+
+-- leer logs de actividad
+CREATE PROCEDURE sp_activity_logs_read(
+    IN p_id_user INT,
+    IN p_action VARCHAR(50),
+    IN p_affected_table VARCHAR(50),
+    IN p_record_id INT,
+    IN p_from_date DATETIME,
+    IN p_to_date DATETIME,
+    IN p_limit INT,
+    IN p_offset INT
+)
+BEGIN
+    DECLARE v_limit INT DEFAULT 999999999;
+    DECLARE v_offset INT DEFAULT 0;
+    
+    IF p_limit IS NOT NULL THEN
+        SET v_limit = p_limit;
+    END IF;
+    
+    IF p_offset IS NOT NULL THEN
+        SET v_offset = p_offset;
+    END IF;
+    
+    SELECT 
+        al.id_log,
+        al.id_user,
+        u.full_name AS user_name,
+        al.action,
+        al.affected_table,
+        al.record_id,
+        al.old_value,
+        al.new_value,
+        al.activity_date
+    FROM activity_logs al
+    LEFT JOIN users u ON al.id_user = u.id_user
+    WHERE (p_id_user IS NULL OR al.id_user = p_id_user)
+      AND (p_action IS NULL OR al.action = p_action)
+      AND (p_affected_table IS NULL OR al.affected_table = p_affected_table)
+      AND (p_record_id IS NULL OR al.record_id = p_record_id)
+      AND (p_from_date IS NULL OR al.activity_date >= p_from_date)
+      AND (p_to_date IS NULL OR al.activity_date <= p_to_date)
+    ORDER BY al.activity_date DESC
+    LIMIT v_limit OFFSET v_offset;
+END //
+
+-- error logs
+
+-- leer con filtros y paginación
+CREATE PROCEDURE sp_error_logs_read(
+    IN p_id_user INT,
+    IN p_error_message_substr VARCHAR(255),
+    IN p_from_date DATETIME,
+    IN p_to_date DATETIME,
+    IN p_limit INT,
+    IN p_offset INT
+)
+BEGIN
+    DECLARE v_limit INT DEFAULT 999999999;
+    DECLARE v_offset INT DEFAULT 0;
+    
+    IF p_limit IS NOT NULL THEN
+        SET v_limit = p_limit;
+    END IF;
+    
+    IF p_offset IS NOT NULL THEN
+        SET v_offset = p_offset;
+    END IF;
+    
+    SELECT 
+        el.id_error,
+        el.id_user,
+        u.full_name AS user_name,
+        el.procedure_name,
+        el.error_code,
+        el.error_message,
+        el.error_date
+    FROM error_logs el
+    LEFT JOIN users u ON el.id_user = u.id_user
+    WHERE (p_id_user IS NULL OR el.id_user = p_id_user)
+      AND (p_error_message_substr IS NULL OR el.error_message LIKE CONCAT('%', p_error_message_substr, '%'))
+      AND (p_from_date IS NULL OR el.error_date >= p_from_date)
+      AND (p_to_date IS NULL OR el.error_date <= p_to_date)
+    ORDER BY el.error_date DESC
+    LIMIT v_limit OFFSET v_offset;
+END //
+
+-- Procedimiento para contar errores
+CREATE PROCEDURE sp_error_logs_count(
+    IN p_id_user INT,
+    IN p_error_message_substr VARCHAR(255),
+    IN p_from_date DATETIME,
+    IN p_to_date DATETIME,
+    OUT p_total INT
+)
+BEGIN
+    SELECT COUNT(*) INTO p_total
+    FROM error_logs el
+    WHERE (p_id_user IS NULL OR el.id_user = p_id_user)
+      AND (p_error_message_substr IS NULL OR el.error_message LIKE CONCAT('%', p_error_message_substr, '%'))
+      AND (p_from_date IS NULL OR el.error_date >= p_from_date)
+      AND (p_to_date IS NULL OR el.error_date <= p_to_date);
+END //
+
 DELIMITER ;

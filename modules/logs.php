@@ -7,7 +7,7 @@
             <label>Log type</label>
             <select id="logTypeSelect" class="form-control" style="width: auto; display: inline-block; margin-right: 10px;">
                 <option value="activity">Activity Logs</option>
-                <option value="error">Error Logs</option>
+                <option value="error">Authentication Logs</option>
             </select>
 
             <label>User</label>
@@ -37,11 +37,11 @@
             </select>
         </div>
 
-        <!-- Campo para filtrar por mensaje de error (solo error logs) -->
+        <!-- Campo para filtrar por mensaje de error (solo authentication logs) -->
         <div id="errorMessageContainer" style="display:none; margin-top: 10px;">
-            <label>Error message</label>
+            <label>Authentication message</label>
             <select id="errorMessageSelect" class="form-control" style="width: auto; display: inline-block;">
-                <option value="">All error messages</option>
+                <option value="">All authentication messages</option>
             </select>
         </div>
     </div>
@@ -224,7 +224,7 @@
             if (tipo === 'activity') {
                 thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Action</th><th>Tables</th><th>ID Register</th><th>Old Value</th><th>New Value</th><th>Date</th></tr>';
             } else {
-                thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Error massage</th><th>Procedure</th><th>Error Code</th><th>Date</th></tr>';
+                thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Authentication massage</th><th>Procedure</th><th>Code</th><th>Date</th></tr>';
             }
             return;
         }
@@ -254,7 +254,7 @@
                 tbody.appendChild(fila);
             }
         } else {
-            thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Error Message</th><th>Procedure</th><th>Error Code</th><th>Date</th></tr>';
+            thead.innerHTML = '<tr><th>ID</th><th>User</th><th>Message</th><th>Procedure</th><th>Code</th><th>Date</th></tr>';
             for (var j = 0; j < datos.length; j++) {
                 var e = datos[j];
                 var filaErr = document.createElement('tr');
