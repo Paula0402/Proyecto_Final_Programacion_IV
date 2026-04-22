@@ -160,6 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await cargarCategorias();
     await cargarTiposMovimiento();
     await cargarProductos();
+    await cargarLotes();
     await cargarMovimientos();
     await cargarUsuarios2();
 });
@@ -259,11 +260,20 @@ async function cargarProductos() {
         </tr>
     `).join('');
 
+}
+
+async function cargarLotes() {
+    const lotes = await apiRequest("api/batches_api.php", "GET");
     const selectMov = document.getElementById("id_batch_select");
-    if(selectMov) {
-        selectMov.innerHTML = '<option value="">Select Product...</option>' + 
-            productos.map(p => `<option value="${p.id_product}">${p.product_name}</option>`).join('');
-    }
+
+    if (!selectMov) return;
+
+    selectMov.innerHTML = '<option value="">Select Batch...</option>' +
+        lotes.map(b => {
+            const qty = Number(b.current_quantity || 0);
+            const label = `${b.product_name} | Batch ${b.batch_number} | Stock: ${qty}`;
+            return `<option value="${b.id_batch}">${label}</option>`;
+        }).join('');
 }
 
 async function crearProducto() {
@@ -356,14 +366,14 @@ async function cargarMovimientos() {
 async function crearMovimiento() {
     const data = {
         id_user: document.getElementById("id_user_select").value,
-        id_product: document.getElementById("id_batch_select").value,
+        id_batch: document.getElementById("id_batch_select").value,
         id_type: document.getElementById("id_movement_type_select").value,
         quantity: document.getElementById("mov_quantity").value,
         justification: document.getElementById("mov_justification").value 
     };
 
-    if(!data.id_product || !data.id_type || !data.quantity) {
-        return alert("Fill required fields: Product, Type and Quantity");
+    if(!data.id_batch || !data.id_type || !data.quantity || !data.id_user) {
+        return alert("Fill required fields: User, Batch, Type and Quantity");
     }
 
     const res = await apiRequest("api/inventory_movements_api.php", "POST", data);
@@ -373,6 +383,7 @@ async function crearMovimiento() {
         document.getElementById("mov_quantity").value = "";
         document.getElementById("mov_justification").value = "";
         await cargarMovimientos(); 
+        await cargarLotes();
         await cargarProductos();   
     }
 }
@@ -391,6 +402,7 @@ async function eliminarMovimientoSeguro(id) {
         } else {
             alert(res.message);
             await cargarMovimientos(); // Recargar tabla
+            await cargarLotes();
             if (window.cargarProductos) await cargarProductos(); // Recargar stock
         }
     } catch (err) {
