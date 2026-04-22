@@ -199,10 +199,27 @@ async function crearCategoria() {
 }
 
 async function eliminarCategoria(id) {
-    if(!confirm("Delete category? This might affect products.")) return;
-    const res = await apiRequest("api/categories_api.php", "DELETE", { id_category: id });
-    alert(res.message);
-    cargarCategorias();
+    if(!confirm("Disable category? If it has active products, it cannot be deleted.")) return;
+    
+    try {
+        const response = await fetch("api/categories_api.php", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_category: id })
+        });
+        
+        const data = await response.json();
+        
+        // Mostrar el mensaje que venga del servidor
+        alert(data.message);
+        
+        // Si la respuesta es exitosa, recargar la tabla de categorías
+        if (response.ok && data.status === "success") {
+            cargarCategorias();
+        }
+    } catch (error) {
+        alert("Connection error: " + error);
+    }
 }
 
 async function editarCategoria(id, nombreActual) {
@@ -265,10 +282,19 @@ async function crearProducto() {
 }
 
 async function eliminarProducto(id) {
-    if(!confirm("Delete product?")) return;
-    const res = await apiRequest("api/products_api.php", "DELETE", { id_product: id });
-    alert(res.message);
-    cargarProductos();
+    if (!id) {
+        alert("Invalid product ID.");
+        return;
+    }
+    if (!confirm("Delete this product?")) return;
+    
+    try {
+        const res = await apiRequest("api/products_api.php", "DELETE", { id_product: id });
+        alert(res.message);
+        cargarProductos();
+    } catch (err) {
+        alert("Error en la solicitud: " + err);
+    }
 }
 
 // --- LÓGICA DE MOVIMIENTOS ---
