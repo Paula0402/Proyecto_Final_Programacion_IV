@@ -3,7 +3,7 @@ session_start();
 require_once 'config/db.php';
 
 /**
- * 1. DEFINICIÓN DE LA FUNCIÓN (Debe ir arriba para que PHP la conozca)
+ * 1. DEFINICIÓN DE LA FUNCIÓN
  */
 function log_auth_attempt(PDO $pdo, string $username, string $status, ?int $userId = null, int $error_code = 0): void {
     try {

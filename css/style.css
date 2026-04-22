@@ -21,6 +21,11 @@ body.login-page{
 
 
 
+/* Transiciones globales */
+* {
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
 /* tarjeta */
 .login-page .login-card{
     background:var(--color1) !important;
@@ -172,6 +177,7 @@ body {
     overflow-x: hidden; /* evita desbordes raros horizontales */
 
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* más limpio */
+    animation: fadeIn 0.4s ease;
 }
 
 /* contenedor usuario */
@@ -255,7 +261,6 @@ body {
     margin-left: 290px; /* ancho sidebar */
 }
 
-/* Ojo: corregir bootstrap container */
 .container {
     max-width: 100% !important;
     margin: 0 !important;
@@ -297,6 +302,11 @@ input, select {
     border-radius: 12px;
     border: none;
     background: var(--color5);
+    transition: 0.2s;
+}
+
+input:hover, select:hover {
+    box-shadow: 0 0 0 1px var(--color3);
 }
 
 /* Botones */
@@ -306,6 +316,10 @@ input, select {
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
+}
+
+.btn:active {
+    transform: scale(0.96);
 }
 
 .btn-primary {
@@ -337,9 +351,14 @@ td {
     padding: 12px;
 }
 
+tbody tr {
+    transition: 0.2s;
+}
+
 /* Hover tabla */
 tbody tr:hover {
     background: var(--color5);
+    transform: scale(1.01);
 }
 
 /* Mensaje */
@@ -578,13 +597,6 @@ body.dark-mode h3 {
 }
 
 /* Tablas daark mode*/
-body.dark-mode table {
-    background: #2b2c37 !important;
-}
-
-body.dark-mode tbody tr {
-    background: #2b2c37 !important;
-}
 
 body.dark-mode td,
 body.dark-mode th {
@@ -608,8 +620,21 @@ body.dark-mode .form-cerrar {
     border: 1px solid #444;
 }
 
-/* login */
+/* Modo oscuro */
+body.dark-mode .modal-content {
+    background: #2b2c37;
+    color: #EAEAEA;
+    border: 1px solid #5a5b66;
+}
 
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    background: #2b2c37 !important;
+    color: #ffffff !important;
+}
+
+/* login */
 
 .login-page .forgot-password {
     margin-top: 18px;
@@ -770,6 +795,25 @@ body.dark-mode .form-cerrar {
 }
 
 /* modal de bloqueo por intentos */
+
+/* Estilos base del modal (modo claro) */
+.modal-content {
+    background: white;
+    color: #000000;
+    width: 400px;
+    margin: 100px auto;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    max-height: 80vh;   /* limita la altura */
+    overflow-y: auto;   /* activa scroll interno */
+}
+
+/*forzar label a heredar color del modal*/
+.modal-content label {
+    color: inherit !important;
+}
 
 /* modal de bloqueo*/
 
@@ -932,32 +976,20 @@ body.dark-mode .form-cerrar {
     }
 }
 
-
-
-
-/* Añadido de estilos para el modal, lo pongo aquí y Jime lo coloca donde prefiera despues :D */
-/* Estilos base del modal (modo claro) */
-.modal-content {
-    background: white;
-    color: #000000;
-    width: 400px;
-    margin: 100px auto;
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    max-height: 80vh;   /* limita la altura */
-    overflow-y: auto;   /* activa scroll interno */
+/* Scroll más bonito */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* Modo oscuro */
-body.dark-mode .modal-content {
-    background: #2b2c37;
-    color: #EAEAEA;
-    border: 1px solid #5a5b66;
+::-webkit-scrollbar-track {
+    background: var(--color5);
 }
 
-/*forzar label a heredar color del modal*/
-.modal-content label {
-    color: inherit !important;
+::-webkit-scrollbar-thumb {
+    background: var(--color2);
+    border-radius: 10px;
 }
+
+
+
+

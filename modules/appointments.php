@@ -2,7 +2,7 @@
     <h2>Appointments and Patients</h2>
 
     <!-- Formulario -->
-    <<form method="post" action="api/appointments_api.php" style="border:1px solid #ddd;padding:12px;margin-bottom:16px;">
+    <form method="post" action="api/appointments_api.php" style="border:1px solid #ddd;padding:12px;margin-bottom:16px;">
         <input type="hidden" name="action" value="add_appointment">
         <h4>Create Appointment</h4>
 

@@ -25,12 +25,12 @@
         </div>
         <div class="form-group"><label>Quantity</label><input type="number" step="0.01" id="miniQty" name="sale_quantity" required oninput="miniCalc()"></div>
         <input type="hidden" name="sale_price" id="miniPriceHidden">
-        <div class="form-group"><label>Unit Price</label><input type="text" id="miniPrice" readonly style="background-color:#f0f0f0;"></div>
+        <div class="form-group"><label>Unit Price</label><input type="text" id="miniPrice" readonly></div>
         <input type="hidden" name="subtotal" id="miniSubtotalHidden">
         <input type="hidden" name="tax" id="miniTaxHidden">
-        <div class="form-group"><label>Subtotal</label><input type="text" id="miniSubtotal" readonly style="background-color:#f0f0f0;"></div>
-        <div class="form-group"><label>Tax</label><input type="text" id="miniTax" readonly style="background-color:#f0f0f0;"></div>
-        <div class="form-group"><label>Total</label><input type="text" id="miniTotal" name="total_display" readonly style="background-color:#f0f0f0;font-weight:bold;font-size:16px;color:#0066cc;"></div>
+        <div class="form-group"><label>Subtotal</label><input type="text" id="miniSubtotal" readonly></div>
+        <div class="form-group"><label>Tax</label><input type="text" id="miniTax" readonly></div>
+        <div class="form-group"><label>Total</label><input type="text" id="miniTotal" name="total_display" readonly></div>
         <input type="hidden" name="sale_user_id" id="saleUserId" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
         <div class="form-group"><label>Payment Method</label>
             <select name="payment_method" id="paymentMethod" required onchange="togglePhoneField()">
