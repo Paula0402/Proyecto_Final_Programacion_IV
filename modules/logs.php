@@ -307,14 +307,26 @@
 
     // Inicialización
     document.addEventListener("DOMContentLoaded", function() {
+        const logTypeSelect = document.getElementById("logTypeSelect");
+        const logUserSelect = document.getElementById("logUserSelect");
+        const logActionSelect = document.getElementById("logActionSelect");
+        const logTableSelect = document.getElementById("logTableSelect");
+        const errorMessageSelect = document.getElementById("errorMessageSelect");
+        const logLimit = document.getElementById("logLimit");
+        const resetLogsBtn = document.getElementById("resetLogsBtn");
+
+        if (!logTypeSelect || !logUserSelect || !logActionSelect || !logTableSelect || !errorMessageSelect || !logLimit || !resetLogsBtn) {
+            return;
+        }
+
         cargarFiltros();
         cargarLogs(0);
-        document.getElementById("logTypeSelect").addEventListener("change", alternarCampos);
-        document.getElementById("logUserSelect").addEventListener("change", function() { cargarLogs(0); });
-        document.getElementById("logActionSelect").addEventListener("change", function() { cargarLogs(0); });
-        document.getElementById("logTableSelect").addEventListener("change", function() { cargarLogs(0); });
-        document.getElementById("errorMessageSelect").addEventListener("change", function() { cargarLogs(0); });
-        document.getElementById("logLimit").addEventListener("change", function() { cargarLogs(0); });
-        document.getElementById("resetLogsBtn").addEventListener("click", resetearFiltros);
+        logTypeSelect.addEventListener("change", alternarCampos);
+        logUserSelect.addEventListener("change", function() { cargarLogs(0); });
+        logActionSelect.addEventListener("change", function() { cargarLogs(0); });
+        logTableSelect.addEventListener("change", function() { cargarLogs(0); });
+        errorMessageSelect.addEventListener("change", function() { cargarLogs(0); });
+        logLimit.addEventListener("change", function() { cargarLogs(0); });
+        resetLogsBtn.addEventListener("click", resetearFiltros);
     });
 </script>

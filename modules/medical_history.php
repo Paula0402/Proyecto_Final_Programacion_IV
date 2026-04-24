@@ -211,18 +211,30 @@
 
     // Inicialización de eventos y carga inicial
     document.addEventListener("DOMContentLoaded", function() {
+        const historyFilter = document.getElementById("historyFilter");
+        const patientSelect = document.getElementById("patientSelect");
+        const dentistSelect = document.getElementById("dentistSelect");
+        const dateFrom = document.getElementById("dateFrom");
+        const dateTo = document.getElementById("dateTo");
+        const historyLimit = document.getElementById("historyLimit");
+        const resetHistoryBtn = document.getElementById("resetHistoryBtn");
+
+        if (!historyFilter || !patientSelect || !dentistSelect || !dateFrom || !dateTo || !historyLimit || !resetHistoryBtn) {
+            return;
+        }
+
         loadHistoryFilters();
         loadMedicalHistory(0);
 
-        document.getElementById("historyFilter").addEventListener("change", function() {
+        historyFilter.addEventListener("change", function() {
             toggleHistoryFields();
             loadMedicalHistory(0);
         });
-        document.getElementById("patientSelect").addEventListener("change", () => loadMedicalHistory(0));
-        document.getElementById("dentistSelect").addEventListener("change", () => loadMedicalHistory(0));
-        document.getElementById("dateFrom").addEventListener("change", () => loadMedicalHistory(0));
-        document.getElementById("dateTo").addEventListener("change", () => loadMedicalHistory(0));
-        document.getElementById("historyLimit").addEventListener("change", () => loadMedicalHistory(0));
-        document.getElementById("resetHistoryBtn").addEventListener("click", resetHistoryFilters);
+        patientSelect.addEventListener("change", () => loadMedicalHistory(0));
+        dentistSelect.addEventListener("change", () => loadMedicalHistory(0));
+        dateFrom.addEventListener("change", () => loadMedicalHistory(0));
+        dateTo.addEventListener("change", () => loadMedicalHistory(0));
+        historyLimit.addEventListener("change", () => loadMedicalHistory(0));
+        resetHistoryBtn.addEventListener("click", resetHistoryFilters);
     });
 </script>

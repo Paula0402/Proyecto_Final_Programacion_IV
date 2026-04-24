@@ -152,8 +152,16 @@ function miniSetPrice() {
 
 // Inicializar eventos para el formulario minimalista
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('miniBatch').addEventListener('change', miniSetPrice);
-    document.getElementById('miniQty').addEventListener('input', miniCalc);
+    const miniBatch = document.getElementById('miniBatch');
+    const miniQty = document.getElementById('miniQty');
+
+    if (miniBatch) {
+        miniBatch.addEventListener('change', miniSetPrice);
+    }
+
+    if (miniQty) {
+        miniQty.addEventListener('input', miniCalc);
+    }
 });
 
 // Sincronizar selección de batch y rellenar precio automáticamente
@@ -177,9 +185,17 @@ function syncBatchSelection() {
 
 // Eventos para recalcular automáticamente
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('batchSearch').addEventListener('input', syncBatchSelection);
-    document.getElementById('batchSearch').addEventListener('change', syncBatchSelection);
-    document.getElementById('quantity').addEventListener('input', calculateSaleTotal);
+    const batchSearch = document.getElementById('batchSearch');
+    const quantity = document.getElementById('quantity');
+
+    if (batchSearch) {
+        batchSearch.addEventListener('input', syncBatchSelection);
+        batchSearch.addEventListener('change', syncBatchSelection);
+    }
+
+    if (quantity) {
+        quantity.addEventListener('input', calculateSaleTotal);
+    }
 });
 (function() {
     // Evitar conflictos con otros módulos
