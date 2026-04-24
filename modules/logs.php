@@ -201,8 +201,8 @@
                 renderizarPaginacion();
             })
             .catch(function(error) {
-                console.error("Error cargando logs:", error);
-                alert("Error de conexión");
+                console.error("Error loading logs:", error);
+                alert("Connection error");
             });
     }
 

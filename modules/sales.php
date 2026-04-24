@@ -80,8 +80,10 @@
                 <td><?php echo htmlspecialchars($s['payment_phone'] ?? ''); ?></td>
                 <td><?php echo htmlspecialchars($s['sale_date']); ?></td>
                 <td>
-                    <button type="button" class="btn btn-small btn-info" onclick="viewSaleInvoice(<?php echo $s['id_sale']; ?>)">View Invoice</button>
-                    <button type="button" class="btn btn-small btn-danger" onclick="softDeleteSale(<?php echo $s['id_sale']; ?>)">Delete</button>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-small btn-info" onclick="viewSaleInvoice(<?php echo $s['id_sale']; ?>)">View Invoice</button>
+                        <button type="button" class="btn btn-small btn-danger" onclick="softDeleteSale(<?php echo $s['id_sale']; ?>)">Delete</button>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -320,16 +322,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const salePrice = document.querySelector('input[name="sale_price"]');
         let errorMsg = '';
         if (!patientId) {
-            errorMsg += 'Falta seleccionar un paciente válido.\n';
+            errorMsg += 'A valid patient must be selected.\n';
         }
         if (!batchId) {
-            errorMsg += 'Falta seleccionar un batch válido.\n';
+            errorMsg += 'A valid batch must be selected.\n';
         }
         if (!unitPriceValue || isNaN(parseFloat(unitPriceValue))) {
-            errorMsg += 'El precio unitario es inválido o está vacío.\n';
+            errorMsg += 'The unit price is invalid or empty.\n';
         }
         if (!quantityValue || isNaN(parseFloat(quantityValue)) || parseFloat(quantityValue) <= 0) {
-            errorMsg += 'La cantidad es inválida o está vacía.\n';
+            errorMsg += 'The quantity is invalid or empty.\n';
         }
         if (errorMsg) {
             alert(errorMsg);

@@ -206,7 +206,7 @@ body {
     align-items: center;
     justify-content: center;
     border: 2px solid var(--color3);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* 🔥 sombra */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /*  sombra */
 }
 
 /* imagen */
@@ -1047,4 +1047,14 @@ body.dark-mode #invoiceContent td {
 /* bordes */
 body.dark-mode #invoiceContent div {
     border-color: #5a5b66 !important;
+}
+
+/* botones del sales */
+.btn-info {
+    background-color: var(--color4) !important; /* gris por ejemplo */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
 }
